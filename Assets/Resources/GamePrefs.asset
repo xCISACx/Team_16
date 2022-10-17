@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef221fb71a75b24e8d5a74335f8358f, type: 3}
+  m_Name: GamePrefs
+  m_EditorClassIdentifier: 
+  masterValue: 0
+  masterVolume: 0
+  musicValue: 0
+  musicVolume: 0
+  sfxValue: 0
+  sfxVolume: 0
+  resolutionIndex: 0
+  resolutionW: 1920
+  resolutionH: 1080
+  fullscreen: 0
+  fullScreenMode: 1
+  HighScore: 0

@@ -1,0 +1,56 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "043995e5-d336-4a5b-8de4-19a94883f0a5",
+            "actions": [
+                {
+                    "name": "MoveOnTheSide",
+                    "type": "PassThrough",
+                    "id": "d955ac6a-ef9a-45cb-8591-c9213d9dfad3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "LeftAndRight",
+                    "id": "666adebf-afe9-4366-9bee-f3918fe4aa3f",
+                    "path": "TwoModifiers",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveOnTheSide",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier1",
+                    "id": "706e63aa-d8e8-4a87-a70a-9f86505d92a7",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveOnTheSide",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "modifier2",
+                    "id": "91b33b5f-1d20-4b0a-8137-7aefb22152bd",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveOnTheSide",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

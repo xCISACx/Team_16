@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239c041d5d523d14d89aa783781d8845, type: 3}
+  m_Name: SampleMusicPack
+  m_EditorClassIdentifier: 
+  SFX:
+  - {fileID: 8300000, guid: e0b5c042b04b36b4ea94fcd371497ab8, type: 3}
+  - {fileID: 8300000, guid: 671c7d0fca27d1a42a01fe4fb79f2066, type: 3}
+  - {fileID: 8300000, guid: e08e195e1e12bf54b86c3c32e0590ac7, type: 3}
+  - {fileID: 8300000, guid: eb58302aeb4c6df488c55d808f216c5f, type: 3}
+  - {fileID: 8300000, guid: 742c1af69c97df043babe9b4ba36ad17, type: 3}
+  music: {fileID: 8300000, guid: 60b4d1303c144c849b0aa5104b84cef6, type: 3}
