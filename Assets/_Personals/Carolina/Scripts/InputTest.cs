@@ -269,28 +269,56 @@ public class InputTest : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("Refuel"))
-        {        
-            GameManager.Instance.GainFuel();
+        {
+            if (Grounded)
+            {
+                GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount);
+                
+                GameManager.Instance.GroundGenerator.moving = false;
+            
+                StopCoroutine(GameManager.Instance.AddToMultiplier());
+            
+                CanJump = false;
+                Debug.Log("can't jump refuel");
+                CanStrafe = false;
+            
+                if (movementCooldownRoutine != null)
+                {
+                    StopCoroutine(movementCooldownRoutine);
+                    ////Debug.Log("coroutine already running, stopping and starting");
+                }
+            
+                if (!GameManager.Instance.GameOver)
+                {
+                    movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
+                }
+            }
+            else
+            {
+                GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount / 2);
+                
+                //GameManager.Instance.GroundGenerator.moving = false;
+            
+                //StopCoroutine(GameManager.Instance.AddToMultiplier());
+            
+                //CanJump = false;
+                //Debug.Log("can't jump refuel");
+                //CanStrafe = false;
+            
+                /*if (movementCooldownRoutine != null)
+                {
+                    StopCoroutine(movementCooldownRoutine);
+                    ////Debug.Log("coroutine already running, stopping and starting");
+                }
+            
+                if (!GameManager.Instance.GameOver)
+                {
+                    movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
+                }*/
+            }
             // Add coroutine that changes speed multiplier to 1 temporarily and then resets it to what it was before
 
-            GameManager.Instance.GroundGenerator.moving = false;
             
-            StopCoroutine(GameManager.Instance.AddToMultiplier());
-            
-            CanJump = false;
-            Debug.Log("can't jump refuel");
-            CanStrafe = false;
-            
-            if (movementCooldownRoutine != null)
-            {
-                StopCoroutine(movementCooldownRoutine);
-                ////Debug.Log("coroutine already running, stopping and starting");
-            }
-            
-            if (!GameManager.Instance.GameOver)
-            {
-                movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
-            }
 
             //         Destroy(other.gameObject);
         }

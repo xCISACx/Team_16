@@ -164,9 +164,9 @@ public class GameManager : MonoBehaviour
         UpdateSpeedUI();
     }
 
-    public void GainFuel()
+    public void GainFuel(int amount)
     {
-        Fuel += FuelGainAmount;
+        Fuel += amount;
         Fuel = Math.Clamp(Fuel, 0, MaxFuel);
         UpdateFuelUI();
     }
@@ -185,6 +185,8 @@ public class GameManager : MonoBehaviour
         
         GameUIManager.restartMenuCanvas.gameObject.SetActive(true);
 
+        GameUIManager.gameOverScoreText.text = "Your final score was: " + Score;
+
         if (Score > Prefs.HighScore)
         {
             Prefs.HighScore = Score;
@@ -199,7 +201,7 @@ public class GameManager : MonoBehaviour
         
         ////Debug.Log(GameUIManager.currentWaterLevelPercentage);
         
-        GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage + " %";
+        GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
         
         GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
         ////Debug.Log(GameUIManager.waterFillImage.fillAmount);
@@ -256,12 +258,15 @@ public class GameManager : MonoBehaviour
 
             SpeedMultiplier = Mathf.Clamp(SpeedMultiplier, 1, MaxSpeedMultiplier);
 
+            Score += Mathf.RoundToInt(SpeedMultiplier / 2);
+
             if (Time.timeScale != 0)
             {
                 LoseFuel(1);   
             }
 
-            GameManager.Instance.UpdateSpeedUI();
+            UpdateSpeedUI();
+            UpdateScoreUI();
             
             yield return new WaitForSecondsRealtime(TimeBeforeSpeedIncrease);
         }

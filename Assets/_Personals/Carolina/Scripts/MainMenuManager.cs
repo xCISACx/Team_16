@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour
     public string GameScene;
 
     [SerializeField] TMP_Text _highScoreText;
+    [SerializeField] TMP_Text _maxSpeedText;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class MainMenuManager : MonoBehaviour
         GameManager.Instance.GameOver = false;
         GameManager.Instance.GameStarted = false;
         _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
+        _maxSpeedText.text = GameManager.Instance.MaxSpeedMultiplier.ToString();
     }
 
     public void Play()
@@ -60,6 +62,12 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.Prefs.HighScore = 0;
         _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
+    }
+
+    public void ChangeMaxSpeed(float value)
+    {
+        GameManager.Instance.MaxSpeedMultiplier = value;
+        _maxSpeedText.text = value.ToString();
     }
 
     public void Quit()

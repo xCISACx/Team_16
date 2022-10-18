@@ -23,6 +23,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI currentWaterLevelPercentageText;
     [SerializeField] public TextMeshProUGUI currentScore;
     [SerializeField] public TextMeshProUGUI CurrentSpeed;
+    [SerializeField] public TextMeshProUGUI gameOverScoreText;
     
     // Images
     [SerializeField] public Image waterFillImage;
