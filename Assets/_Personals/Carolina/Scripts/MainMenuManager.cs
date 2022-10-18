@@ -14,12 +14,15 @@ public class MainMenuManager : MonoBehaviour
     
     public string GameScene;
 
+    [SerializeField] TMP_Text _highScoreText;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
         //MatchSettingsPopup.SetActive(false);
         GameManager.Instance.GameOver = false;
         GameManager.Instance.GameStarted = false;
+        _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
     }
 
     public void Play()
@@ -36,18 +39,27 @@ public class MainMenuManager : MonoBehaviour
 
     public void Options()
     {
-        SettingsPopup.SetActive(true);
+        GameManager.Instance.MenuManager.Options();
+        //SettingsPopup.SetActive(true);
     }
     
     public void CloseOptions() //TODO: MAKE TOGGLE?
     {
-        SettingsPopup.SetActive(false);
+        GameManager.Instance.MenuManager.CloseOptions();
+        //SettingsPopup.SetActive(false);
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene(GameScene);
         GameManager.Instance.GameStarted = true;
+        //GameManager.Instance.Init();
+    }
+
+    public void ClearHighScore()
+    {
+        GameManager.Instance.Prefs.HighScore = 0;
+        _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
     }
 
     public void Quit()

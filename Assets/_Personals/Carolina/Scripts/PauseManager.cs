@@ -33,27 +33,34 @@ public class PauseManager : MonoBehaviour
 
     public void TogglePause()
     {
-        GamePaused = !GamePaused;
-        PauseCanvas.enabled = GamePaused;
-        if (MenuManager)
+        if (!GameManager.Instance.GameOver)
         {
-            MenuManager.CloseOptions();   
-        }
+            GamePaused = !GamePaused;
+            PauseCanvas.enabled = GamePaused;
+            if (MenuManager)
+            {
+                MenuManager.CloseOptions();   
+            }
 
-        if (GamePaused)
-        {
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.None;
+            if (GamePaused)
+            {
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }   
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
+    }
+    
+    public void Options()
+    {
+        GameManager.Instance.MenuManager.Options();
     }
 
     public void QuitToMenu()
     {
-        GameManager.Instance.ResetGame();
-        SceneManager.LoadScene(0);
+        GameManager.Instance.MenuManager.QuitToMenu();
     }
 }

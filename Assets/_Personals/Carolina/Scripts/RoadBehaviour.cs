@@ -11,7 +11,7 @@ public class RoadBehaviour : MonoBehaviour
     public Transform StartPoint;
     public Transform EndPoint;
     public List<ObstacleParentBehaviour> Obstacles;
-    public List<GameObject> RefuelingStations;
+    public List<RefuelStationBehaviour> RefuelingStations;
     public List<GameObject> ScoreTriggers;
     public MeshRenderer MeshRenderer;
     public GameObject RefuelingStation;
@@ -42,18 +42,34 @@ public class RoadBehaviour : MonoBehaviour
         
     }
 
+    [ContextMenu("Gather References")]
     private void OnValidate()
     {
         Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
-        ScoreTriggers = GameObject.FindGameObjectsWithTag("ScoreTriggers").ToList();
-        RefuelingStations = GameObject.FindGameObjectsWithTag("Refuel").ToList();
+        ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
+        RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
     }
 
-    private void Awake()
+    /*private void Awake()
     {
         Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
-        ScoreTriggers = GameObject.FindGameObjectsWithTag("ScoreTriggers").ToList();
-        RefuelingStations = GameObject.FindGameObjectsWithTag("Refuel").ToList();
+        ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
+        RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
+    }*/
+    
+    public List<GameObject> FindTagObjects(GameObject parent, string tag)
+    {
+        List<GameObject> objs = new List<GameObject>();
+        
+        foreach (Transform t in parent.GetComponentsInChildren<Transform>(true))
+        {
+            if (t.tag == tag)
+            {
+                objs.Add(t.gameObject);
+            }
+        }
+        
+        return objs;
     }
 
     public GameObject SpawnObject(RoadBehaviour road, bool refuel)
@@ -67,7 +83,7 @@ public class RoadBehaviour : MonoBehaviour
             foreach (var station in RefuelingStations)
             {
                 //Debug.Log("deactivating stations " + road.name);
-                station.SetActive(false);
+                station.gameObject.SetActive(false);
             }
 
             if (GameManager.Instance.GroundGenerator.activeFuelStations.Count >= 1) return null;
@@ -76,7 +92,7 @@ public class RoadBehaviour : MonoBehaviour
 
             var num = Random.Range(0, RefuelingStations.Count);
 
-            newStation = RefuelingStations[num];
+            newStation = RefuelingStations[num].gameObject;
 
             newStation.SetActive(true);
 
@@ -155,7 +171,7 @@ public class RoadBehaviour : MonoBehaviour
         foreach (var station in RefuelingStations)
         {
             //Debug.Log("deactivating stations " + gameObject.name);
-            station.SetActive(false);
+            station.gameObject.SetActive(false);
         }
 
         foreach (var obstacle in Obstacles)

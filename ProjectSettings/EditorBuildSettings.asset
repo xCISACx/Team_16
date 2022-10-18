@@ -5,10 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_Personals/Carolina/CarolinaScene.unity
-    guid: df7a21d4df42aba488b7fca90b8eb200
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Personals/_Template/CarolinaMainMenu.unity
     guid: 1f53b5beb2ec4d744bb635c2ea97eda5
   - enabled: 1

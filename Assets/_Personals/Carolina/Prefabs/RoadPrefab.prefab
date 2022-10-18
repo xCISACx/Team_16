@@ -574,10 +574,11 @@ MonoBehaviour:
   - {fileID: 2943183842337960166}
   - {fileID: 4874382363519198681}
   RefuelingStations:
-  - {fileID: 4673874989559351041}
-  - {fileID: 1241356525127502809}
+  - {fileID: 6694903170300826353}
+  - {fileID: 3806610565855860391}
   ScoreTriggers:
   - {fileID: 6809306383209425252}
+  - {fileID: 4549529930333878360}
   - {fileID: 4800277630818984890}
   - {fileID: 5038848339994181353}
   - {fileID: 8576316270139154961}
@@ -1064,7 +1065,7 @@ GameObject:
   - component: {fileID: 5709941175297159413}
   - component: {fileID: 3970246640406774987}
   m_Layer: 6
-  m_Name: ScoreTrigger
+  m_Name: ScoreTrigger_1
   m_TagString: ScoreTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1554,7 +1555,7 @@ GameObject:
   - component: {fileID: 4761710232162411749}
   - component: {fileID: 5569021905044630502}
   m_Layer: 6
-  m_Name: ScoreTrigger
+  m_Name: ScoreTrigger_0
   m_TagString: ScoreTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

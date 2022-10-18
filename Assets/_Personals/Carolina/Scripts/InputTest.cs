@@ -27,11 +27,24 @@ public class InputTest : MonoBehaviour
     private Vector3 velocity;
     [SerializeField] private float _airTime;
     [SerializeField] private float _maxAirTime;
+    [SerializeField] private Controls Controls;
 
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    private void OnEnable()
+    {
+        Controls = new Controls();
+        Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<PlayerInput>().actions = null;
+        Controls.Disable();
     }
 
     // Update is called once per frame

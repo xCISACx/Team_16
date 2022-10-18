@@ -50,8 +50,8 @@ MonoBehaviour:
   musician: {fileID: 6074415127301999595}
   GroundGenerator: {fileID: 0}
   GameUIManager: {fileID: 0}
+  MenuManager: {fileID: 7974977432950260146}
   Player: {fileID: 0}
-  GameInitDone: 0
   GameStarted: 0
   GameOver: 0
   Score: 0

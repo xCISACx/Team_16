@@ -166,6 +166,13 @@ public class MenuManager : MonoBehaviour
         
         prefs.resolutionIndex = index;
     }
+    
+    public void QuitToMenu()
+    {
+        GameManager.Instance.ResetGame();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
 
     public void Quit()
     {

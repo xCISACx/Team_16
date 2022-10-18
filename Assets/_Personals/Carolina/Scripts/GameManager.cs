@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GroundGenerator GroundGenerator;
 
     public GameUIManager GameUIManager;
+
+    public MenuManager MenuManager;
 
     public InputTest Player;
     
@@ -59,9 +62,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
         Prefs = Resources.Load<Prefs>("GamePrefs");
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.name == "GameScene")
+        {
+            Debug.Log("running init");
+            Init();
+        }
     }
 
     public void Update()
@@ -69,7 +84,7 @@ public class GameManager : MonoBehaviour
         // unity is stupid and doesn't run the init function so we need to reassign one by one
         if (GameStarted)
         {
-            if (!GroundGenerator)
+            /*if (!GroundGenerator)
             {
                 GroundGenerator = FindObjectOfType<GroundGenerator>();
             }
@@ -82,7 +97,7 @@ public class GameManager : MonoBehaviour
             if (!Player)
             {
                 Player = FindObjectOfType<InputTest>();
-            }
+            }*/
         }
         
         if(!musician)
@@ -90,10 +105,10 @@ public class GameManager : MonoBehaviour
             musician = FindObjectOfType<Musician>();
         }
 
-        if (!Initialised && GameStarted)
+        /*if (!Initialised && GameStarted)
         {
            Init();
-        }
+        }*/
 
         if (GameOver)
         {
@@ -206,6 +221,7 @@ public class GameManager : MonoBehaviour
     {
         GameOver = false;
         Score = 0;
+        SpeedMultiplier = 1;
         Fuel = DefaultFuel;
         CurrentLaneIndex = 1;
         Initialised = false;
@@ -213,11 +229,9 @@ public class GameManager : MonoBehaviour
         //Init();
     }
 
-    private void Init()
+    public void Init()
     {
         //Debug.Log("Game Manager Init");
-        StopAllCoroutines();
-        StartCoroutine(AddToMultiplier());
         musician = FindObjectOfType<Musician>();
         GameUIManager = FindObjectOfType<GameUIManager>();
         GroundGenerator = FindObjectOfType<GroundGenerator>();
@@ -225,6 +239,8 @@ public class GameManager : MonoBehaviour
         UpdateFuelUI();
         UpdateSpeedUI();
         UpdateScoreUI();
+        StopAllCoroutines();
+        StartCoroutine(AddToMultiplier());
         musician.PlayMusic();
         Initialised = true;
         //Debug.Log("Game Manager Init Done");
