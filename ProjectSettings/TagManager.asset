@@ -4,26 +4,20 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacle
   - Refuel
-  - StoreDroplet
-  - Waterwall
+  - Obstacle
   - Droplet
-  - ScoreTrigger
-  - Music Slider
-  - SFX Slider
-  - Master Slider
-  - Ground
-  - PropSet
-  - ShootTarget
+  - StoreDroplet
+  - MoveWaterToResevoir
+  - Waterwall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Droplet
   - Water
   - UI
-  - PostProcessing
+  - 
   - 
   - 
   - 

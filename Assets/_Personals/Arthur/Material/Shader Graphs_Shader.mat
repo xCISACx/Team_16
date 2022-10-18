@@ -29,7 +29,7 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _CurveX: 0.309
-    - _CurveY: 0.149
+    - _CurveY: 0
     - _Distance: 20
     m_Colors: []
   m_BuildTextureStacks: []
