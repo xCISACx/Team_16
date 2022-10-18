@@ -49,7 +49,7 @@ public class PauseManager : MonoBehaviour
             }
             else
             {
-                Time.timeScale = 1;
+                Time.timeScale = GameManager.Instance.CurrentTimeScale;
             }   
         }
     }

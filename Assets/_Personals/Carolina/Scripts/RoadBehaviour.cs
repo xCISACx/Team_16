@@ -13,12 +13,15 @@ public class RoadBehaviour : MonoBehaviour
     public List<ObstacleParentBehaviour> Obstacles;
     public List<RefuelStationBehaviour> RefuelingStations;
     public List<GameObject> ScoreTriggers;
+    public List<GameObject> PropSets;
     public MeshRenderer MeshRenderer;
     public GameObject RefuelingStation;
     public GameObject DropletSpawnpoint;
     public bool HasSpawn;
+    public bool HasProps;
     public int Id;
     public GameObject SpawnsParent;
+    [SerializeField] private GameObject PropsParent;
     
     public enum TileType
     {
@@ -48,6 +51,7 @@ public class RoadBehaviour : MonoBehaviour
         Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
         ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
         RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
+        PropSets = FindTagObjects(PropsParent, "PropSet");
     }
 
     /*private void Awake()
@@ -90,7 +94,7 @@ public class RoadBehaviour : MonoBehaviour
             
             GameObject newStation = null;
 
-            var num = Random.Range(0, RefuelingStations.Count);
+            var num = UnityEngine.Random.Range(0, RefuelingStations.Count);
 
             newStation = RefuelingStations[num].gameObject;
 
@@ -165,6 +169,28 @@ public class RoadBehaviour : MonoBehaviour
         }
 
     }
+
+    public void SpawnPropSet()
+    {
+        var seed = System.DateTime.Now.Millisecond;
+        
+        Random.InitState(seed);
+        
+        var num = Random.Range(0, PropSets.Count);
+
+        var newPropSet = PropSets[num].gameObject;
+
+        newPropSet.SetActive(true);
+
+        HasProps = true;
+        
+        GameManager.Instance.GroundGenerator.CanSpawnProps = true;
+        
+        foreach (var road in GameManager.Instance.GroundGenerator.SpawnedRoad)
+        {
+            Shuffle(road.PropSets);
+        }
+    }
     
     public void ResetSpawns()
     {
@@ -185,11 +211,33 @@ public class RoadBehaviour : MonoBehaviour
         Type = TileType.None;
     }
 
+    public void ResetProps()
+    {
+        foreach (var set in PropSets)
+        {
+            set.gameObject.SetActive(false);
+        }
+    }
+
     public void SetScoreTriggers(bool value)
     {
         foreach (var trigger in ScoreTriggers)
         {
             trigger.SetActive(value);
+        }
+    }
+    
+    public void Shuffle<T>(List<T> list)
+    {
+        int n = list.Count;
+        
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
     }
 }

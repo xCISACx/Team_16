@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     public AudioSource SFXSource;
     public AudioSource MusicSource;
 
+    public float CurrentTimeScale = 1;
+
     public Prefs Prefs;
     private void Awake()
     {
@@ -258,7 +260,7 @@ public class GameManager : MonoBehaviour
 
             SpeedMultiplier = Mathf.Clamp(SpeedMultiplier, 1, MaxSpeedMultiplier);
 
-            Score += Mathf.RoundToInt(SpeedMultiplier / 2);
+            Score += Mathf.RoundToInt((SpeedMultiplier / 2) * Time.timeScale);
 
             if (Time.timeScale != 0)
             {
@@ -266,9 +268,10 @@ public class GameManager : MonoBehaviour
             }
 
             UpdateSpeedUI();
+            
             UpdateScoreUI();
             
-            yield return new WaitForSecondsRealtime(TimeBeforeSpeedIncrease);
+            yield return new WaitForSeconds(TimeBeforeSpeedIncrease);
         }
     }
 

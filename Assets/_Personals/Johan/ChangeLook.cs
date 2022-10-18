@@ -42,7 +42,7 @@ public class ChangeLook : MonoBehaviour
 	void changeShirtColorPressed()
 	{
 		shirtColorInt = shirtColorInt + 1;
-		if (shortColorInt <=5)
+		if (shirtColorInt <=5)
 		{
 			shirtColorInt = 1;
 		}

@@ -316,6 +316,7 @@ public class InputTest : MonoBehaviour
                     movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
                 }*/
             }
+            GameManager.Instance.musician.PlaySound(1);
             // Add coroutine that changes speed multiplier to 1 temporarily and then resets it to what it was before
 
             

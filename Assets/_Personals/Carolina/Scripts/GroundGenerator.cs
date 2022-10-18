@@ -17,6 +17,7 @@ public class GroundGenerator : MonoBehaviour
     [SerializeField] public bool moving;
     [SerializeField] public List<GameObject> activeFuelStations;
     public bool CanSpawnObject = true;
+    public bool CanSpawnProps = true;
     public Rigidbody Rigidbody;
     public RoadBehaviour.TileType LastSpawnedObstacleType;
 
@@ -45,6 +46,8 @@ public class GroundGenerator : MonoBehaviour
                     newRoad.SpawnObject(newRoad, false);
                 }
             }
+            
+            newRoad.SpawnPropSet();
 
             SpawnedRoad.Add(newRoad);
         }
@@ -96,6 +99,7 @@ public class GroundGenerator : MonoBehaviour
         var tempRoad = SpawnedRoad[0];
 
         tempRoad.HasSpawn = false;
+        tempRoad.HasProps = false;
         //tempRoad.Type = RoadBehaviour.TileType.None;
         
         if (SpawnedRoad[SpawnedRoad.Count - 1].Type == RoadBehaviour.TileType.Refuel)
@@ -140,6 +144,13 @@ public class GroundGenerator : MonoBehaviour
         else
         {
             refuel = false;
+        }
+        
+        if (!tempRoad.HasProps && CanSpawnProps)
+        {
+            Debug.Log("spawning props on " + tempRoad.name);
+            tempRoad.ResetProps();
+            tempRoad.SpawnPropSet();
         }
 
         if (!tempRoad.HasSpawn && CanSpawnObject)

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4316373257784648575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5205483408141867493}
+  m_Layer: 0
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5205483408141867493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316373257784648575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.847, z: 1.034}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5753307155682573503}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5753307155682573492
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +47,7 @@ GameObject:
   - component: {fileID: 5753307155682573490}
   - component: {fileID: 5753307155682573493}
   - component: {fileID: 825553545}
+  - component: {fileID: 8475319042500278256}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36,6 +68,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2039567251598372762}
+  - {fileID: 5205483408141867493}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,7 +295,7 @@ MonoBehaviour:
   CanStrafe: 1
   CanJump: 1
   Grounded: 0
-  Falling: 0
+  Jumping: 0
   GroundCheckDistance: {x: 0, y: 0.53, z: 0}
   GroundCheckRadius: 0.09
   GroundLayerMask:
@@ -272,6 +305,9 @@ MonoBehaviour:
   fallMultiplier: 40
   Impact: {fileID: 8688974102255258156, guid: 5097debda4433c24e814aca9b3281fe9, type: 3}
   jumpHeight: 6
+  maxJumpHeight: 0
+  _airTime: 0
+  _maxAirTime: 0
 --- !u!75 &825553545
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -284,6 +320,29 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &8475319042500278256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5753307155682573492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec150f7e6f3854478980f41474f2b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2184703988707139496, guid: 4f5e995dc0f030945bed1006d7632cca, type: 3}
+  bulletSpawnPosObj: {fileID: 4316373257784648575}
+  targetPrefab: {fileID: 539344472830158859, guid: f0e27aa78ab943a4fadcdc340a0a9546, type: 3}
+  bulletSpawnPosition: {x: 0, y: 0, z: 0}
+  minFuelRequiredToShoot: 0
+  shootCooldown: 1
+  bulletSpeed: 10
+  scoreOnHit: 200
+  timeToHitTarget: 10
+  targetSpawnSeconds: 20
+  spawnCountDown: 0
 --- !u!1 &6229797067826471311
 GameObject:
   m_ObjectHideFlags: 0
