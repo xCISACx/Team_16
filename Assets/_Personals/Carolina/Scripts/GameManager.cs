@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
 
             if (Time.timeScale != 0)
             {
-                LoseFuel(1);   
+                LoseFuel(Mathf.RoundToInt(GameManager.Instance.SpeedMultiplier / 2));   
             }
 
             UpdateSpeedUI();
