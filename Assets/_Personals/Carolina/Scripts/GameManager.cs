@@ -199,19 +199,26 @@ public class GameManager : MonoBehaviour
 
     public void UpdateFuelUI()
     {
-	    GameUIManager.currentWaterLevelPercentage = ( (float) Fuel / MaxFuel) * 100;
+        GameUIManager.currentWaterLevelPercentage = ( (float) Fuel / MaxFuel) * 100;
         
         ////Debug.Log(GameUIManager.currentWaterLevelPercentage);
         
         GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
         
         GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
+        Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));
         ////Debug.Log(GameUIManager.waterFillImage.fillAmount);
     }
 
     public void UpdateSpeedUI()
     {
         GameUIManager.CurrentSpeed.text = Mathf.RoundToInt(SpeedMultiplier).ToString();
+        
+        foreach (var wheel in Player.Wheels)
+        {
+            wheel.GetComponent<WheelRotate>().rotation.y =  - SpeedMultiplier * 25;
+        }
+        
         //SpeedPointer.transform.Rotate();
     }
     

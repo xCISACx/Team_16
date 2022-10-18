@@ -81,7 +81,7 @@ Material:
     - _Cutoff: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
-    - _Fill: 0.577
+    - _Fill: 0.5
     - _FresnelPower: 5.84
     - _GlossMapScale: 1
     - _Glossiness: 0.144

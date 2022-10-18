@@ -5,7 +5,7 @@ using UnityEngine;
 public class WheelRotate : MonoBehaviour
 {
     //Decide in which rotation you want the wheel to be put inside the inspector. Higher values = faster rotation.
-    [SerializeField] private Vector3 rotation;
+    [SerializeField] public Vector3 rotation;
     [SerializeField] private float right;
     [SerializeField] private float left;
     private void Start()

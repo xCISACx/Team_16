@@ -28,6 +28,8 @@ public class InputTest : MonoBehaviour
     [SerializeField] private float _airTime;
     [SerializeField] private float _maxAirTime;
     [SerializeField] private Controls Controls;
+    [SerializeField] public GameObject TankWater;
+    public List<GameObject> Wheels;
 
     // Start is called before the first frame update
     void Start()
