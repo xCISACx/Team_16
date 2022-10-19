@@ -109,6 +109,12 @@ public class InputTest : MonoBehaviour
         {
             transform.DOMoveX(GameManager.Instance.LanePositions[GameManager.Instance.CurrentLaneIndex].x, StrafeDuration, false).SetEase(Ease.Linear);   
         }
+        
+        if (context.ReadValue<Vector2>().x > 0) transform.eulerAngles = new Vector3(0, 30, 0); 
+        else if (context.ReadValue<Vector2>().x < 0) transform.eulerAngles = new Vector3(0, -30, 0);
+        StartCoroutine(RotateStraight());
+        
+        
 
         /*if (context.ReadValue<Vector2>().x > 0)
         {
@@ -155,6 +161,12 @@ public class InputTest : MonoBehaviour
         }*/
     }
 
+    public IEnumerator RotateStraight()
+    {
+        yield return new WaitForSeconds(0.2f);
+        transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+    
     public void Jump(InputAction.CallbackContext context)
     {
         /*svar sign = Mathf.Sign(context.ReadValue<Vector2>().y);
