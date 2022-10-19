@@ -10,6 +10,14 @@ TagManager:
   - StoreDroplet
   - MoveWaterToResevoir
   - Waterwall
+  - Master Slider
+  - Music Slider
+  - SFX Slider
+  - ShootTarget
+  - ScoreTrigger
+  - PropSet
+  - Ground
+  - ChaseTrigger
   layers:
   - Default
   - TransparentFX

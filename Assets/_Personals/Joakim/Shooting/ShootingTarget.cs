@@ -28,6 +28,12 @@ public class ShootingTarget : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.GameOver)
+        {
+            Destroy(gameObject);
+            KillAllTweens();
+        }
+        
         timeLeftUntilDespawn -= Time.deltaTime;
         countdownTxt.text = Mathf.RoundToInt(timeLeftUntilDespawn).ToString();
     }

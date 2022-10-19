@@ -25,18 +25,20 @@ public class ShootManager : MonoBehaviour
 
     private void Update()
     {
-        bulletSpawnPosition = bulletSpawnPosObj.transform.position;
-
-        if (spawnCountDown < targetSpawnSeconds + 0.2f)
+        if (!GameManager.Instance.GameOver)
         {
-            spawnCountDown += Time.deltaTime;
-        }
-        else if(spawnCountDown >= targetSpawnSeconds)
-        {
-            SpawnTarget();
-            spawnCountDown = 0;
-        }
+            bulletSpawnPosition = bulletSpawnPosObj.transform.position;
 
+            if (spawnCountDown < targetSpawnSeconds + 0.2f)
+            {
+                spawnCountDown += Time.deltaTime;
+            }
+            else if(spawnCountDown >= targetSpawnSeconds)
+            {
+                SpawnTarget();
+                spawnCountDown = 0;
+            }   
+        }
     }
 
     public void Shoot(InputAction.CallbackContext context)

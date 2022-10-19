@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public GameUIManager GameUIManager;
 
     public MenuManager MenuManager;
+    
+    public ChaseManager ChaseManager;
 
     public InputTest Player;
     
@@ -176,14 +178,18 @@ public class GameManager : MonoBehaviour
     public void StartGameOver()
     {
         //Debug.Log("starting game over");
+
+        GameOver = true;
         
         StopAllCoroutines();
         
         StopCoroutine(AddToMultiplier());
 
         GroundGenerator.moving = false;
+        Debug.Log("stopping ground generator movement game over");
         
         Player.CanStrafe = false;
+        Player.CanJump = false;
         
         GameUIManager.restartMenuCanvas.gameObject.SetActive(true);
 
@@ -246,6 +252,7 @@ public class GameManager : MonoBehaviour
         musician = FindObjectOfType<Musician>();
         GameUIManager = FindObjectOfType<GameUIManager>();
         GroundGenerator = FindObjectOfType<GroundGenerator>();
+        ChaseManager = FindObjectOfType<ChaseManager>();
         Player = FindObjectOfType<InputTest>();
         UpdateFuelUI();
         UpdateSpeedUI();
@@ -271,7 +278,7 @@ public class GameManager : MonoBehaviour
 
             if (Time.timeScale != 0)
             {
-                LoseFuel(Mathf.RoundToInt(GameManager.Instance.SpeedMultiplier / 2));   
+                LoseFuel(Mathf.RoundToInt((GameManager.Instance.SpeedMultiplier / 4) * Time.timeScale));   
             }
 
             UpdateSpeedUI();

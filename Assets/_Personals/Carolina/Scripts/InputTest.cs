@@ -234,6 +234,7 @@ public class InputTest : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         FindObjectOfType<GroundGenerator>().moving = true;
+        Debug.Log("resuming movement");
         CanStrafe = true;
         CanJump = true;
     }
@@ -246,7 +247,14 @@ public class InputTest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.CompareTag("ChaseTrigger"))
+        {
+            StopCoroutine(GameManager.Instance.Player.movementCooldownRoutine);
+
+            GameManager.Instance.StartGameOver();
+        }
+        
+        else if (other.gameObject.CompareTag("Obstacle"))
         {
             GameManager.Instance.LoseFuel(GameManager.Instance.FuelLossAmount);
             GameManager.Instance.LoseSpeed();
@@ -280,9 +288,28 @@ public class InputTest : MonoBehaviour
             GameManager.Instance.musician.PlaySound(2);
             
             other.transform.GetComponent<ObstacleBehaviour>().roadParent.SetScoreTriggers(false);
+
+            GameManager.Instance.ChaseManager.TimesHit++;
+            
+            StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());
+
+            /*if (GameManager.Instance.ChaseManager.TimesHit >= GameManager.Instance.ChaseManager.MaxTimesHit)
+            {
+                if (GameManager.Instance.ChaseManager._chaseCoroutine == null)
+                {
+                    GameManager.Instance.ChaseManager._chaseCoroutine = StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());   
+                }
+                else
+                {
+                    StopCoroutine(GameManager.Instance.ChaseManager._chaseCoroutine);
+                    StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());
+                }
+            }*/
+            
+            GameManager.Instance.ChaseManager.NoHitTimer = 0;
         }
 
-        if (other.gameObject.CompareTag("Refuel"))
+        else if (other.gameObject.CompareTag("Refuel"))
         {
             if (Grounded)
             {
