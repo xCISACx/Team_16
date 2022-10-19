@@ -51,15 +51,14 @@ public class RoadBehaviour : MonoBehaviour
         Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
         ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
         RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
+        PropsParent = FindTagObjects(gameObject, "PropsParent")[0];
         PropSets = FindTagObjects(PropsParent, "PropSet");
     }
 
-    /*private void Awake()
+    private void Awake()
     {
-        Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
-        ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
-        RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
-    }*/
+        PropsParent = GameObject.FindWithTag("PropsParent");
+    }
     
     public List<GameObject> FindTagObjects(GameObject parent, string tag)
     {

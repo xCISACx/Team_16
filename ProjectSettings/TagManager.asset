@@ -18,6 +18,7 @@ TagManager:
   - PropSet
   - Ground
   - ChaseTrigger
+  - PropsParent
   layers:
   - Default
   - TransparentFX
