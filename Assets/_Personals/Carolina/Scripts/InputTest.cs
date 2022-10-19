@@ -32,10 +32,25 @@ public class InputTest : MonoBehaviour
     public List<GameObject> Wheels;
     public SkinnedMeshRenderer ModelMeshRenderer;
 
+    public Animator Animator;
+
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    private void Awake()
+    {
+        Animator = GetComponent<Animator>();
+        Controls = new Controls();
+        
+        Controls.Player.Move.canceled += OnMoveCanceled;
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext obj)
+    {
+        Animator.SetInteger("XInput", 0);
     }
 
     private void OnEnable()
@@ -57,6 +72,8 @@ public class InputTest : MonoBehaviour
         //Grounded = Physics.CheckBox(transform.position - GroundCheckDistance, (transform.position - GroundCheckDistance) + GroundCheckRadius, GroundLayerMask);
         /*CanJump = Grounded;
         CanStrafe = Grounded;*/
+        Animator.SetBool("Grounded", Grounded);
+
     }
 
     private void FixedUpdate()
@@ -75,6 +92,7 @@ public class InputTest : MonoBehaviour
         if (!Grounded && _airTime > _maxAirTime)
         {
             Rb.AddForce(-Vector3.up * fallMultiplier);
+            Animator.SetTrigger("Fall");
         }
 
             /*if (Rb.velocity.y > 0)
@@ -96,12 +114,14 @@ public class InputTest : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
+        Animator.SetInteger("XInput", (int) context.ReadValue<Vector2>().x);
+        
         if (!context.started) return;
 
         if (!CanStrafe) return;
 
         var sign = Mathf.Sign(context.ReadValue<Vector2>().x);
-        
+
         GameManager.Instance.CurrentLaneIndex += (int) sign;
         
         GameManager.Instance.CurrentLaneIndex = Mathf.Clamp(GameManager.Instance.CurrentLaneIndex, 0, 2);
@@ -182,6 +202,7 @@ public class InputTest : MonoBehaviour
         
         if (Grounded && CanJump)
         {
+            Animator.SetTrigger("Jump");
             Debug.Log("Jumping");
             Rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             Debug.Log("can't jump jumping started");
@@ -190,8 +211,10 @@ public class InputTest : MonoBehaviour
         }
         else if (!Grounded && Jumping)
         {
+            Animator.SetTrigger("Fall");
             Debug.Log("Force falling");
             Rb.AddForce(-Vector3.up * JumpForce * 2, ForceMode.Impulse);
+            Animator.ResetTrigger("Jump");
             //Rb.velocity -= Vector3.up * JumpForce * 2;
         }
 
@@ -389,6 +412,8 @@ public class InputTest : MonoBehaviour
             _airTime = 0;
 
             Jumping = false;
+            Animator.ResetTrigger("Jump");
+            Animator.ResetTrigger("Fall");
 
             /*if (!Grounded)
             {

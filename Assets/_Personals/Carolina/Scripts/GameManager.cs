@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
         GroundGenerator = FindObjectOfType<GroundGenerator>();
         ChaseManager = FindObjectOfType<ChaseManager>();
         Player = FindObjectOfType<InputTest>();
-        InitPlayerColours();
+        //InitPlayerColours();
         UpdateFuelUI();
         UpdateSpeedUI();
         UpdateScoreUI();
