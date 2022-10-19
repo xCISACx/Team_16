@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -56,6 +53,7 @@ public class GameManager : MonoBehaviour
     public float CurrentTimeScale = 1;
 
     public Prefs Prefs;
+
     private void Awake()
     {
         if (!Instance)
@@ -254,6 +252,7 @@ public class GameManager : MonoBehaviour
         GroundGenerator = FindObjectOfType<GroundGenerator>();
         ChaseManager = FindObjectOfType<ChaseManager>();
         Player = FindObjectOfType<InputTest>();
+        InitPlayerColours();
         UpdateFuelUI();
         UpdateSpeedUI();
         UpdateScoreUI();
@@ -287,6 +286,16 @@ public class GameManager : MonoBehaviour
             
             yield return new WaitForSeconds(TimeBeforeSpeedIncrease);
         }
+    }
+
+    public void InitPlayerColours()
+    {
+        var playerMeshRendererMaterials = Player.ModelMeshRenderer.materials;
+        playerMeshRendererMaterials[2].color = Prefs.PantsColour;
+        playerMeshRendererMaterials[3].color = Prefs.ShirtColour;
+        playerMeshRendererMaterials[4].color = Prefs.BodyColour;
+        playerMeshRendererMaterials[7].color = Prefs.CapColour;
+        playerMeshRendererMaterials[6].color = Prefs.HairColour;
     }
 
     public void AddScore(int score)

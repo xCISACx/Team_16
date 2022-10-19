@@ -23,4 +23,12 @@ public class Prefs : ScriptableObject
     [Header("Stats")]
 	
     public int HighScore;
+    
+    [Header("Customisation")]
+    
+    public Color CapColour;
+    public Color HairColour;
+    public Color BodyColour;
+    public Color ShirtColour;
+    public Color PantsColour;
 }

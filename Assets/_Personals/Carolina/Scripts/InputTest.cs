@@ -30,6 +30,7 @@ public class InputTest : MonoBehaviour
     [SerializeField] private Controls Controls;
     [SerializeField] public GameObject TankWater;
     public List<GameObject> Wheels;
+    public SkinnedMeshRenderer ModelMeshRenderer;
 
     // Start is called before the first frame update
     void Start()
