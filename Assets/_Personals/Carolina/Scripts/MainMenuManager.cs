@@ -23,9 +23,9 @@ public class MainMenuManager : MonoBehaviour
         //MatchSettingsPopup.SetActive(false);
         GameManager.Instance.GameOver = false;
         GameManager.Instance.GameStarted = false;
-        _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
         _maxSpeedText.text = GameManager.Instance.MaxSpeedMultiplier.ToString();
         GameManager.Instance.ScoreManager.LoadScores();
+        _highScoreText.text = GameManager.Instance.Prefs.Scores[0].ScoreValue.ToString();
         GameManager.Instance.musician.PlayMusic();
     }
 
