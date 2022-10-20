@@ -34,6 +34,8 @@ public class InputTest : MonoBehaviour
 
     public Animator Animator;
 
+    public bool EnableInvincibility = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,7 +75,7 @@ public class InputTest : MonoBehaviour
         /*CanJump = Grounded;
         CanStrafe = Grounded;*/
         Animator.SetBool("Grounded", Grounded);
-
+        GainInvincibility();
     }
 
     private void FixedUpdate()
@@ -187,6 +189,13 @@ public class InputTest : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         transform.eulerAngles = new Vector3(0, 0, 0);
     }
+
+    public IEnumerator WaitForFewSeconds(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        EnableInvincibility = false;
+        GameManager.Instance.invincTemp.InvincibleOff();
+    }
     
     public void Jump(InputAction.CallbackContext context)
     {
@@ -269,16 +278,29 @@ public class InputTest : MonoBehaviour
         CanStrafe = true;
     }
 
+    public void GainInvincibility()
+    {
+        if (GameManager.Instance.Fuel == GameManager.Instance.MaxFuel)
+        {
+            EnableInvincibility = true;
+            GameManager.Instance.invincTemp.InvincibleOn();
+        }
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ChaseTrigger"))
+        if (other.gameObject.CompareTag("ChaseTrigger") && EnableInvincibility == false)
         {
             StopCoroutine(GameManager.Instance.Player.movementCooldownRoutine);
 
             GameManager.Instance.StartGameOver();
         }
-        
-        else if (other.gameObject.CompareTag("Obstacle"))
+        else if (other.gameObject.CompareTag("Obstacle") && EnableInvincibility == true)
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(WaitForFewSeconds(5));
+        }
+        else if (other.gameObject.CompareTag("Obstacle") && EnableInvincibility == false)
         {
             GameManager.Instance.LoseFuel(GameManager.Instance.FuelLossAmount);
             GameManager.Instance.LoseSpeed();
@@ -332,8 +354,7 @@ public class InputTest : MonoBehaviour
             
             GameManager.Instance.ChaseManager.NoHitTimer = 0;
         }
-
-        else if (other.gameObject.CompareTag("Refuel"))
+        else if (other.gameObject.CompareTag("Refuel") && EnableInvincibility == false)
         {
             if (Grounded)
             {
