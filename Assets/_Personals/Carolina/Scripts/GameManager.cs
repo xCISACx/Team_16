@@ -37,8 +37,7 @@ public class GameManager : MonoBehaviour
 
     public int FuelLossAmount = 20;
     public int FuelGainAmount = 10;
-
-    public Image SpeedPointer;
+    
     [SerializeField] private int DefaultFuel = 50;
     [SerializeField] public bool Initialised;
     
@@ -72,6 +71,11 @@ public class GameManager : MonoBehaviour
         Prefs = Resources.Load<Prefs>("GamePrefs");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        MenuManager.LoadMenuUIValues();
+        MenuManager.SetMasterVolume(Prefs.masterValue);
+        MenuManager.SetMusicVolume(Prefs.musicValue);
+        MenuManager.SetSFXVolume(Prefs.sfxValue);
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -137,6 +141,8 @@ public class GameManager : MonoBehaviour
 
             GameInitDone = true;
         }*/
+        
+        //Debug.Log(Time.timeScale);
     }
 
     /*public void UpdateDropPosition(Vector3 pos)
@@ -161,7 +167,7 @@ public class GameManager : MonoBehaviour
     
     public void LoseSpeed()
     {
-        SpeedMultiplier = 1;
+        SpeedMultiplier /= 2;
         
         SpeedMultiplier = Math.Clamp(SpeedMultiplier, 1, MaxSpeedMultiplier);
 
@@ -286,7 +292,7 @@ public class GameManager : MonoBehaviour
 
             if (Time.timeScale != 0)
             {
-                LoseFuel(Mathf.RoundToInt((GameManager.Instance.SpeedMultiplier / 4) * Time.timeScale));   
+                LoseFuel(Mathf.RoundToInt((GameManager.Instance.SpeedMultiplier / 5) * Time.timeScale));   
             }
 
             UpdateSpeedUI();

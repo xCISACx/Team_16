@@ -2678,7 +2678,7 @@ MonoBehaviour:
   TilesToSpawnAtStart: 10
   SpawnedRoad: []
   MainCamera: {fileID: 656281093}
-  refuelSpawnChance: 75
+  refuelSpawnChance: 80
   moving: 1
   activeFuelStations: []
   CanSpawnObject: 1
@@ -4118,7 +4118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChaseTrigger: {fileID: 43170904}
   _start: {fileID: 127363822}
-  _moveAmount: 3
+  _moveAmount: 2
   NoHitTimer: 0
   _getAwayThreshold: 6
   TimesHit: 0

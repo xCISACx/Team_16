@@ -145,7 +145,7 @@ public class GroundGenerator : MonoBehaviour
         {
             refuel = false;
         }
-        
+
         if (!tempRoad.HasProps && CanSpawnProps)
         {
             Debug.Log("spawning props on " + tempRoad.name);
