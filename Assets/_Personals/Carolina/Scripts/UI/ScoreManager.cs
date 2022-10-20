@@ -32,7 +32,11 @@ public class ScoreManager : MonoBehaviour
         //Scores = JsonUtility.FromJson<List<Score>>(json);
         Scores = GameManager.Instance.Prefs.Scores;
         Scores = Scores.OrderByDescending(x => x.ScoreValue).ToList();
-        ScoreUI.Populate();
+        
+        if (ScoreUI)
+        {
+            ScoreUI.Populate();   
+        }
     }
 
     private void OnDestroy()

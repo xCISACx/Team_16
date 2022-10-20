@@ -194,7 +194,7 @@ public class InputTest : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(seconds);
         EnableInvincibility = false;
-        GameManager.Instance.invincTemp.InvincibleOff();
+        //GameManager.Instance.invincTemp.InvincibleOff();
     }
     
     public void Jump(InputAction.CallbackContext context)
@@ -283,7 +283,7 @@ public class InputTest : MonoBehaviour
         if (GameManager.Instance.Fuel == GameManager.Instance.MaxFuel)
         {
             EnableInvincibility = true;
-            GameManager.Instance.invincTemp.InvincibleOn();
+            //GameManager.Instance.invincTemp.InvincibleOn();
         }
     }
     

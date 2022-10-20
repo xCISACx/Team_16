@@ -26,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
         _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
         _maxSpeedText.text = GameManager.Instance.MaxSpeedMultiplier.ToString();
         GameManager.Instance.ScoreManager.LoadScores();
+        GameManager.Instance.musician.PlayMusic();
     }
 
     public void Play()
@@ -70,12 +71,6 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(GameScene);
         GameManager.Instance.GameStarted = true;
         //GameManager.Instance.Init();
-    }
-
-    public void ClearHighScore()
-    {
-        GameManager.Instance.Prefs.HighScore = 0;
-        _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
     }
 
     public void ChangeMaxSpeed(float value)

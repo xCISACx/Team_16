@@ -12,20 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef221fb71a75b24e8d5a74335f8358f, type: 3}
   m_Name: GamePrefs
   m_EditorClassIdentifier: 
-  masterValue: 0
-  masterVolume: 0
-  musicValue: 0
+  masterValue: 0.51762444
+  masterVolume: -5.7197046
+  musicValue: 1
   musicVolume: 0
-  sfxValue: 0
-  sfxVolume: 0
+  sfxValue: 0.7131763
+  sfxVolume: -2.9360619
   resolutionIndex: 0
   resolutionW: 1920
   resolutionH: 1080
-  fullscreen: 0
+  fullscreen: 1
   fullScreenMode: 1
-  Scores: []
-  HighScore: 0
-  CapColour: {r: 0, g: 0, b: 0, a: 0}
+  Scores:
+  - Name: Jacob
+    ScoreValue: 7600
+  - Name: Alexander
+    ScoreValue: 15150
+  - Name: Edward
+    ScoreValue: 20900
+  - Name: Vincent, Adam, Fredrik
+    ScoreValue: 8100
+  - Name: Greta
+    ScoreValue: 2100
+  HighScore: 1376
+  CapColour: {r: 1, g: 0, b: 0, a: 0}
   HairColour: {r: 0, g: 0, b: 0, a: 0}
   BodyColour: {r: 1, g: 0.82124645, b: 0.6273585, a: 0}
   ShirtColour: {r: 1, g: 0, b: 0, a: 0}

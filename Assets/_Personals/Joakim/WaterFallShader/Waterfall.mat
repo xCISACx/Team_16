@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Waterfall
-  m_Shader: {fileID: -6465566751694194690, guid: 99960516ea3234c4b9defcf8ce5ff55e, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ffb9976f282bd9b4aaa73c5177637b53, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -76,16 +76,21 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TransparancyMask: 0
+    - _TransparancyMask: 1.06
+    - _Transperancy: 0.92
     - _UVSec: 0
     - _VeronoiAgiliation: 2.01
     - _VoronoiPower: 6.93
     - _VoronoiScale: 2
     - _ZWrite: 1
+    - _wobbleDistance: 0.1
+    - _wobbleFreq: -1.34
+    - _wobbleSpeed: -3.23
     m_Colors:
-    - _BaseColor: {r: 0.15307933, g: 0.4212003, b: 0.75471693, a: 0.09019608}
+    - _BaseColor: {r: 0, g: 0.6, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Vector3Control: {r: 0.02, g: 0, b: 0, a: 0}
     - _VoronoiColor: {r: 0.231132, g: 0.82739705, b: 1, a: 0.4117647}
     - _VoronoiSpeed: {r: 1.77, g: 0.6, b: 0, a: 0}
     - _VoronoiTiling: {r: 38.92, g: 1, b: 0, a: 0}

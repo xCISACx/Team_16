@@ -312,4 +312,12 @@ public class GameManager : MonoBehaviour
         Score += score;
         UpdateScoreUI();
     }
+    
+    public void ClearHighScores()
+    {
+        Prefs.Scores.Clear();
+        ScoreManager.Scores.Clear();
+        ScoreManager.ScoreUI.Populate();
+        Prefs.HighScore = 0;
+    }
 }
