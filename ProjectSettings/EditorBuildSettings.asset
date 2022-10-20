@@ -10,6 +10,9 @@ EditorBuildSettings:
     guid: 1f53b5beb2ec4d744bb635c2ea97eda5
   - enabled: 1
     path: Assets/_Personals/_Template/GameScene.unity
+    guid: 5605b0863940966428f1531c5850f61e
+  - enabled: 0
+    path: Assets/_Personals/_Template/OldMainMenu.unity
     guid: ac122487eee05cc46a3dfb7291fb63ad
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ce64999dabe8d2d40928fa0fe832bb2e, type: 2}

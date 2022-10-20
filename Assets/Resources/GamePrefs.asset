@@ -23,4 +23,10 @@ MonoBehaviour:
   resolutionH: 1080
   fullscreen: 0
   fullScreenMode: 1
+  Scores: []
   HighScore: 0
+  CapColour: {r: 0, g: 0, b: 0, a: 0}
+  HairColour: {r: 0, g: 0, b: 0, a: 0}
+  BodyColour: {r: 1, g: 0.82124645, b: 0.6273585, a: 0}
+  ShirtColour: {r: 1, g: 0, b: 0, a: 0}
+  PantsColour: {r: 1, g: 0, b: 0, a: 0}

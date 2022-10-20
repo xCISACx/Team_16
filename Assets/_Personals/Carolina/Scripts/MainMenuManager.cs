@@ -25,6 +25,7 @@ public class MainMenuManager : MonoBehaviour
         GameManager.Instance.GameStarted = false;
         _highScoreText.text = GameManager.Instance.Prefs.HighScore.ToString();
         _maxSpeedText.text = GameManager.Instance.MaxSpeedMultiplier.ToString();
+        GameManager.Instance.ScoreManager.LoadScores();
     }
 
     public void Play()
@@ -48,6 +49,19 @@ public class MainMenuManager : MonoBehaviour
     public void CloseOptions() //TODO: MAKE TOGGLE?
     {
         GameManager.Instance.MenuManager.CloseOptions();
+        //SettingsPopup.SetActive(false);
+    }
+    
+    public void ScoreBoard()
+    {
+        GameManager.Instance.MenuManager.ScoreBoard();
+        GameManager.Instance.ScoreManager.LoadScores();
+        //SettingsPopup.SetActive(true);
+    }
+    
+    public void CloseScoreBoard() //TODO: MAKE TOGGLE?
+    {
+        GameManager.Instance.MenuManager.CloseScoreBoard();
         //SettingsPopup.SetActive(false);
     }
 

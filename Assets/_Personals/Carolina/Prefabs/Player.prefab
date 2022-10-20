@@ -344,6 +344,7 @@ MonoBehaviour:
   TankWater: {fileID: 5104381558461357335}
   Wheels: []
   ModelMeshRenderer: {fileID: 8271436158252893971}
+  Animator: {fileID: 0}
 --- !u!75 &825553545
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -1149,6 +1150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.000005255305
       objectReference: {fileID: 0}
+    - target: {fileID: 5986489703365777150, guid: acbb20f6745f1844080a38ab587338db, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 42e713507ef349c4f9d87a24a41fcd82, type: 2}
     - target: {fileID: 6028813288677759269, guid: acbb20f6745f1844080a38ab587338db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.027553927

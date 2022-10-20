@@ -20,8 +20,9 @@ public class Prefs : ScriptableObject
     public bool fullscreen;
     public FullScreenMode fullScreenMode;
 
-    [Header("Stats")]
-	
+    [Header("Stats")] 
+    public List<Score> Scores;
+
     public int HighScore;
     
     [Header("Customisation")]

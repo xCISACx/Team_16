@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TMP_Text HighScoreText;
+    [SerializeField] private GameObject Scoreboard;
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -177,5 +178,17 @@ public class MenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+    
+    public void ScoreBoard()
+    {
+        Scoreboard.gameObject.SetActive(true);
+        GameManager.Instance.ScoreManager.LoadScores();
+        //SettingsPopup.SetActive(true);
+    }
+    
+    public void CloseScoreBoard() //TODO: MAKE TOGGLE?
+    {
+        Scoreboard.gameObject.SetActive(false);
     }
 }

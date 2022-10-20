@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     
     public ChaseManager ChaseManager;
 
+    public ScoreManager ScoreManager;
+
     public InputTest Player;
     
     public bool GameStarted;
@@ -192,6 +194,8 @@ public class GameManager : MonoBehaviour
         GameUIManager.restartMenuCanvas.gameObject.SetActive(true);
 
         GameUIManager.gameOverScoreText.text = "Your final score was: " + Score;
+        
+        GameUIManager.CheckIfShouldShowNameInputField();
 
         if (Score > Prefs.HighScore)
         {
@@ -210,7 +214,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
         
         GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
-        Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));
+        
+        if (Player)
+        {
+            Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));   
+        }
         ////Debug.Log(GameUIManager.waterFillImage.fillAmount);
     }
 
@@ -240,6 +248,7 @@ public class GameManager : MonoBehaviour
         Fuel = DefaultFuel;
         CurrentLaneIndex = 1;
         Initialised = false;
+        GameUIManager.CanSaveHighScore = true;
         //Player.Init();
         //Init();
     }
@@ -252,7 +261,7 @@ public class GameManager : MonoBehaviour
         GroundGenerator = FindObjectOfType<GroundGenerator>();
         ChaseManager = FindObjectOfType<ChaseManager>();
         Player = FindObjectOfType<InputTest>();
-        //InitPlayerColours();
+        InitPlayerColours();
         UpdateFuelUI();
         UpdateSpeedUI();
         UpdateScoreUI();
