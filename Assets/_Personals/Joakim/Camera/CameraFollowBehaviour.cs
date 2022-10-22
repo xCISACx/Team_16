@@ -5,11 +5,13 @@ using UnityEngine;
 public class CameraFollowBehaviour : MonoBehaviour
 {
     [Header("Place this script in the camera")]
+    
     public Transform target;
 	
     [SerializeField]private float smoothSpeed; //Higher value = slower camera
 	
     [SerializeField]private Vector3 offset; //Manually set camera position in the inspector
+    
     private Vector3 velocity = Vector3.zero;
 
     private void LateUpdate()

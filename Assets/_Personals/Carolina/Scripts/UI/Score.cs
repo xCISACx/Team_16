@@ -12,6 +12,7 @@ public class Score
     public Score(string name, int scoreValue)
     {
         this.Name = name;
+        
         this.ScoreValue = scoreValue;
     }
 }

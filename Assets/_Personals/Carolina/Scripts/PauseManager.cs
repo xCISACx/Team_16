@@ -9,47 +9,38 @@ using Cursor = UnityEngine.Cursor;
 public class PauseManager : MonoBehaviour
 {
     public bool GamePaused = false;
-    public Canvas PauseCanvas;
-    public MenuManager MenuManager;
-    [SerializeField] public Controls Controls;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (Controls.Player.Pause.triggered)
-        {
-            TogglePause();
-        }*/
-        
-        
-        ////Debug.Log(Time.timeScale);
-    }
+    public Canvas PauseCanvas;
+    
+    public MenuManager MenuManager;
 
     public void TogglePause()
     {
         if (!GameManager.Instance.GameOver)
         {
             GamePaused = !GamePaused;
+            
             PauseCanvas.enabled = GamePaused;
+            
             if (MenuManager)
             {
-                MenuManager.CloseOptions();   
+                MenuManager.CloseOptions();
+                
             }
 
             if (GamePaused)
             {
                 Time.timeScale = 0;
+                
                 Cursor.lockState = CursorLockMode.None;
             }
             else
             {
                 Time.timeScale = GameManager.Instance.CurrentTimeScale;
+                
+                MenuManager.CloseOptions();
+                
+                Cursor.lockState = CursorLockMode.Locked;
             }   
         }
     }

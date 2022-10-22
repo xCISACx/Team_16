@@ -28,21 +28,24 @@ public class GroundGenerator : MonoBehaviour
 
         for (int i = 0; i < TilesToSpawnAtStart; i++)
         {
-            //new Vector3(0, 0, RoadPrefab.transform.position + RoadPrefab.GetComponent<MeshRenderer>().bounds.extents.x);
             spawnPosition.z += RoadPrefab.MeshRenderer.bounds.extents.z;
             
             var newRoad = Instantiate(RoadPrefab, spawnPosition, Quaternion.identity);
+            
             newRoad.name = "Road " + (i + 1);
+            
             newRoad.Id = i;
 
             spawnPosition = newRoad.EndPoint.position;
+            
             newRoad.transform.SetParent(transform);
 
             if (i % 2 == 0 && i != 0)
             {
                 if (CanSpawnObject)
                 {
-                    ////Debug.Log("spawning starting obstacle every 2 tiles");
+                    //Debug.Log("spawning starting obstacle every 2 tiles");
+                    
                     newRoad.SpawnObject(newRoad, false);
                 }
             }
@@ -60,17 +63,6 @@ public class GroundGenerator : MonoBehaviour
         {
             SpawnNewTile();
         }
-        
-        /*if (GameManager.Instance.Player.transform.position.z > 200)
-        {
-            GameManager.Instance.Player.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            transform.position = new Vector3(transform.position.x, transform.position.y, 7.837552f);
-            
-            foreach (var tile in SpawnedRoad)
-            {
-                tile.transform.localPosition = new Vector3(0, -1, transform.position.z + RoadPrefab.MeshRenderer.bounds.extents.z);
-            }
-        }*/
     }
 
     private void FixedUpdate()
@@ -86,12 +78,6 @@ public class GroundGenerator : MonoBehaviour
         Vector3 newPos = new Vector3(0, 0, -transform.forward.z * Time.deltaTime * (GameManager.Instance.Speed * GameManager.Instance.SpeedMultiplier) * Time.timeScale);
         
         transform.Translate(newPos, Space.World);
-        
-        //Rigidbody.MovePosition(newPos);
-        
-        //Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, Rigidbody.velocity.y, -transform.forward.z * Time.deltaTime * (GameManager.Instance.Speed * GameManager.Instance.SpeedMultiplier) * Time.timeScale);
-        
-        //Rigidbody.AddForce(new Vector3(Rigidbody.velocity.x, Rigidbody.velocity.y, -transform.forward.z * Time.deltaTime * (GameManager.Instance.Speed * GameManager.Instance.SpeedMultiplier) * Time.timeScale));
     }
 
     private void SpawnNewTile()
@@ -99,19 +85,23 @@ public class GroundGenerator : MonoBehaviour
         var tempRoad = SpawnedRoad[0];
 
         tempRoad.HasSpawn = false;
-        tempRoad.HasProps = false;
-        //tempRoad.Type = RoadBehaviour.TileType.None;
         
+        tempRoad.HasProps = false;
+
         if (SpawnedRoad[SpawnedRoad.Count - 1].Type == RoadBehaviour.TileType.Refuel)
         {
-            ////Debug.Log(SpawnedRoad[SpawnedRoad.Count - 1].name + " was a refuel tile so we won't spawn obstacles on " + tempRoad.name);
+            //Debug.Log(SpawnedRoad[SpawnedRoad.Count - 1].name + " was a refuel tile so we won't spawn obstacles on " + tempRoad.name);
+            
             CanSpawnObject = false;
+            
             tempRoad.Type = RoadBehaviour.TileType.None;
         }
         else if (SpawnedRoad[SpawnedRoad.Count - 1].Type == RoadBehaviour.TileType.JumpingObstacle)
         {
             CanSpawnObject = false;
+            
             tempRoad.Type = RoadBehaviour.TileType.None;
+            
             Debug.Log("can't spawn obstacle because " + SpawnedRoad[SpawnedRoad.Count - 1].name + " was jumping " + tempRoad.name);
         }
         else if (SpawnedRoad[SpawnedRoad.Count - 1].Type != RoadBehaviour.TileType.Refuel && 
@@ -119,10 +109,10 @@ public class GroundGenerator : MonoBehaviour
                  tempRoad.Id % 2 != 0)
         {
             CanSpawnObject = true;
+            
             Debug.Log("can spawn obstacle because id is not a multiple of 2 and " + SpawnedRoad[SpawnedRoad.Count - 1].name + " wasn't refuel or jumping " + tempRoad.name);
         }
-
-        //activeFuelStations.Remove(SpawnedRoad[0].RefuelingStation);
+        
         SpawnedRoad.RemoveAt(0);
         
         tempRoad.ResetSpawns();
@@ -148,23 +138,27 @@ public class GroundGenerator : MonoBehaviour
 
         if (!tempRoad.HasProps && CanSpawnProps)
         {
-            Debug.Log("spawning props on " + tempRoad.name);
+            //Debug.Log("spawning props on " + tempRoad.name);
+            
             tempRoad.ResetProps();
+            
             tempRoad.SpawnPropSet();
         }
 
         if (!tempRoad.HasSpawn && CanSpawnObject)
         {
-            Debug.Log("spawning object refuel " + refuel + " " + tempRoad.name);
+            //Debug.Log("spawning object refuel " + refuel + " " + tempRoad.name);
+            
             tempRoad.ResetSpawns();
+            
             tempRoad.SpawnObject(tempRoad, refuel);
         }
         else
         {
-            ////Debug.Log(tempRoad.name + " already has a spawn");
+            //Debug.Log(tempRoad.name + " already has a spawn");
         }
 
-        ////Debug.Log(refuel);
+        //Debug.Log(refuel);
 
         SpawnedRoad.Add(tempRoad);
     }

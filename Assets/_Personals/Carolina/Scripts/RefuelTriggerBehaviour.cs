@@ -13,15 +13,5 @@ public class RefuelTriggerBehaviour : MonoBehaviour
                 GameManager.Instance.GroundGenerator.activeFuelStations.Remove(GameManager.Instance.GroundGenerator.activeFuelStations[0]);
             }
         }
-
-        /*if (other.gameObject.CompareTag("Waterwall"))
-        {
-            GameManager.Instance.DropManager.MoveDropletsToResevoir();
-
-            if (GameManager.Instance.GroundGenerator.activeFuelStations.Count > 0)
-            {
-                GameManager.Instance.GroundGenerator.activeFuelStations.Remove(GameManager.Instance.GroundGenerator.activeFuelStations[0]);
-            }
-        }*/
     }
 }

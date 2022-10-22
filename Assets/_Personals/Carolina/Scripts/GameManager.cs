@@ -73,50 +73,30 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         
         MenuManager.LoadMenuUIValues();
-        MenuManager.SetMasterVolume(Prefs.masterValue);
-        MenuManager.SetMusicVolume(Prefs.musicValue);
-        MenuManager.SetSFXVolume(Prefs.sfxValue);
+        
+        MenuManager.SetMasterVolume(Prefs.MasterValue);
+        
+        MenuManager.SetMusicVolume(Prefs.MusicValue);
+        
+        MenuManager.SetSFXVolume(Prefs.SfxValue);
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (arg0.name == "GameScene")
         {
-            Debug.Log("running init");
+            //Debug.Log("running init")
+                
             Init();
         }
     }
 
     public void Update()
     {
-        // unity is stupid and doesn't run the init function so we need to reassign one by one
-        if (GameStarted)
-        {
-            /*if (!GroundGenerator)
-            {
-                GroundGenerator = FindObjectOfType<GroundGenerator>();
-            }
-
-            if (!GameUIManager)
-            {
-                GameUIManager = FindObjectOfType<GameUIManager>();
-            }
-
-            if (!Player)
-            {
-                Player = FindObjectOfType<InputTest>();
-            }*/
-        }
-        
         if(!musician)
         {
             musician = FindObjectOfType<Musician>();
         }
-
-        /*if (!Initialised && GameStarted)
-        {
-           Init();
-        }*/
 
         if (GameOver)
         {
@@ -124,42 +104,19 @@ public class GameManager : MonoBehaviour
         
             Cursor.visible = true;
         }
-        
-        /*if (!Initialised)
-        {
-            Player = FindObjectOfType<InputTest>();
-            StopAllCoroutines();
-            StartCoroutine(AddToMultiplier());
-            GameUIManager = FindObjectOfType<GameUIManager>();
-            GroundGenerator = FindObjectOfType<GroundGenerator>();
-            Player = FindObjectOfType<InputTest>();
-            UpdateFuelUI();
-            UpdateSpeedUI();
-            UpdateScoreUI();
-        
-            CurrentLaneIndex = 1;
-
-            GameInitDone = true;
-        }*/
-        
-        //Debug.Log(Time.timeScale);
     }
 
-    /*public void UpdateDropPosition(Vector3 pos)
-    {
-        DropManager.nextDropPos = pos;
-    }*/
-    
     public void LoseFuel(int amount)
     {
         Fuel -= amount;
+        
         Fuel = Math.Clamp(Fuel, 0, MaxFuel);
 
         if (Fuel <= 0)
         {
             GameOver = true;
+            
             StartGameOver();
-            //Player.CanJump = false;
         }
         
         UpdateFuelUI();
@@ -177,7 +134,9 @@ public class GameManager : MonoBehaviour
     public void GainFuel(int amount)
     {
         Fuel += amount;
+        
         Fuel = Math.Clamp(Fuel, 0, MaxFuel);
+        
         UpdateFuelUI();
     }
 
@@ -192,9 +151,11 @@ public class GameManager : MonoBehaviour
         StopCoroutine(AddToMultiplier());
 
         GroundGenerator.moving = false;
-        Debug.Log("stopping ground generator movement game over");
+        
+        //Debug.Log("stopping ground generator movement game over");
         
         Player.CanStrafe = false;
+        
         Player.CanJump = false;
         
         GameUIManager.restartMenuCanvas.gameObject.SetActive(true);
@@ -207,15 +168,13 @@ public class GameManager : MonoBehaviour
         {
             Prefs.HighScore = Score;
         }
-        
-        //Time.timeScale = 0;
     }
 
     public void UpdateFuelUI()
     {
         GameUIManager.currentWaterLevelPercentage = ( (float) Fuel / MaxFuel) * 100;
         
-        ////Debug.Log(GameUIManager.currentWaterLevelPercentage);
+        //Debug.Log(GameUIManager.currentWaterLevelPercentage);
         
         GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
         
@@ -225,7 +184,7 @@ public class GameManager : MonoBehaviour
         {
             Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));   
         }
-        ////Debug.Log(GameUIManager.waterFillImage.fillAmount);
+        //Debug.Log(GameUIManager.waterFillImage.fillAmount);
     }
 
     public void UpdateSpeedUI()
@@ -236,44 +195,58 @@ public class GameManager : MonoBehaviour
         {
             wheel.GetComponent<WheelRotate>().rotation.y =  - SpeedMultiplier * 25;
         }
-        
-        //SpeedPointer.transform.Rotate();
     }
     
     public void UpdateScoreUI()
     {
         GameUIManager.currentScore.text = Mathf.RoundToInt(Score).ToString();
-        //SpeedPointer.transform.Rotate();
     }
 
     public void ResetGame()
     {
         GameOver = false;
+        
         Score = 0;
+        
         SpeedMultiplier = 1;
+        
         Fuel = DefaultFuel;
+        
         CurrentLaneIndex = 1;
+        
         Initialised = false;
+        
         GameUIManager.CanSaveHighScore = true;
-        //Player.Init();
-        //Init();
     }
 
     public void Init()
     {
         //Debug.Log("Game Manager Init");
+        
         musician = FindObjectOfType<Musician>();
+        
         GameUIManager = FindObjectOfType<GameUIManager>();
+        
         GroundGenerator = FindObjectOfType<GroundGenerator>();
+        
         ChaseManager = FindObjectOfType<ChaseManager>();
+        
         Player = FindObjectOfType<InputTest>();
+        
         InitPlayerColours();
+        
         UpdateFuelUI();
+        
         UpdateSpeedUI();
+        
         UpdateScoreUI();
+        
         StopAllCoroutines();
+        
         StartCoroutine(AddToMultiplier());
+        
         musician.PlayMusic();
+        
         Initialised = true;
         //Debug.Log("Game Manager Init Done");
     }
@@ -282,7 +255,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            ////Debug.Log("speed up");
+            //Debug.Log("speed up");
             
             SpeedMultiplier += SpeedIncrease * Time.timeScale;
 
@@ -306,24 +279,33 @@ public class GameManager : MonoBehaviour
     public void InitPlayerColours()
     {
         var playerMeshRendererMaterials = Player.ModelMeshRenderer.materials;
+        
         playerMeshRendererMaterials[2].color = Prefs.PantsColour;
+        
         playerMeshRendererMaterials[3].color = Prefs.ShirtColour;
+        
         playerMeshRendererMaterials[4].color = Prefs.BodyColour;
+        
         playerMeshRendererMaterials[7].color = Prefs.CapColour;
+        
         playerMeshRendererMaterials[6].color = Prefs.HairColour;
     }
 
     public void AddScore(int score)
     {
         Score += score;
+        
         UpdateScoreUI();
     }
     
     public void ClearHighScores()
     {
         Prefs.Scores.Clear();
+        
         ScoreManager.Scores.Clear();
+        
         ScoreManager.ScoreUI.Populate();
+        
         Prefs.HighScore = 0;
     }
 }

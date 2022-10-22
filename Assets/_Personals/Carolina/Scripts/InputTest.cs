@@ -36,12 +36,6 @@ public class InputTest : MonoBehaviour
 
     public bool EnableInvincibility = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     private void Awake()
     {
         Animator = GetComponent<Animator>();
@@ -71,18 +65,14 @@ public class InputTest : MonoBehaviour
     void Update()
     {
         Grounded = Physics.CheckSphere(transform.position - GroundCheckDistance, GroundCheckRadius, GroundLayerMask);
-        //Grounded = Physics.CheckBox(transform.position - GroundCheckDistance, (transform.position - GroundCheckDistance) + GroundCheckRadius, GroundLayerMask);
-        /*CanJump = Grounded;
-        CanStrafe = Grounded;*/
+        
         Animator.SetBool("Grounded", Grounded);
-        GainInvincibility();
     }
 
     private void FixedUpdate()
     {
         if (!Grounded && Rb.velocity.y <= 0) //we're falling
         {
-            //Rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
             Rb.AddForce(-Vector3.up * fallMultiplier);
         }
 
@@ -97,19 +87,6 @@ public class InputTest : MonoBehaviour
             Animator.SetTrigger("Fall");
         }
 
-            /*if (Rb.velocity.y > 0)
-            {
-                Rb.velocity = Rb.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime;
-            }*/
-        
-        /*if (!Grounded)
-        {
-            velocity += (velocity.y < 0 ? Physics.gravity * 1.1f : Physics.gravity * 0.2f) * Time.deltaTime;
-            Rb.velocity = velocity;
-        }*/
-        
-        //Rigidbody.MovePosition(new Vector3(0, 0, transform.position.z + 1));
-        
         var clampedPosY = Mathf.Clamp(transform.position.y, 1.01f, jumpHeight);
         transform.position = new Vector3(transform.position.x, clampedPosY, transform.position.z);
     }
@@ -133,282 +110,194 @@ public class InputTest : MonoBehaviour
             transform.DOMoveX(GameManager.Instance.LanePositions[GameManager.Instance.CurrentLaneIndex].x, StrafeDuration, false).SetEase(Ease.Linear);   
         }
         
-        if (context.ReadValue<Vector2>().x > 0) transform.eulerAngles = new Vector3(0, 30, 0); 
+        if (context.ReadValue<Vector2>().x > 0) transform.eulerAngles = new Vector3(0, 30, 0);
+        
         else if (context.ReadValue<Vector2>().x < 0) transform.eulerAngles = new Vector3(0, -30, 0);
+        
         StartCoroutine(RotateStraight());
-        
-        
-
-        /*if (context.ReadValue<Vector2>().x > 0)
-        {
-            if (transform.position.x < StrafeDistance && CanStrafe)
-            {
-                //Debug.Log("moving left");
-                
-                var initialPos = transform.position;
-                
-                var newPos = initialPos - new Vector3(StrafeDistance, 0, 0);
-                
-                //transform.position += new Vector3(-StrafeDistance, 0, 0);
-
-                transform.DOMoveX(GameManager.Instance.LanePositions[GameManager.Instance.CurrentLaneIndex].x, StrafeDuration, false).SetEase(Ease.Linear);
-                
-                CanStrafe = false;
-                
-                StartCoroutine(EnableStrafeAfterSeconds(StrafeDuration));
-            }
-        }
-        else if (context.ReadValue<Vector2>().x < 0)
-        {
-            if (transform.position.x > -StrafeDistance && CanStrafe)
-            {
-                //Debug.Log("moving left");
-                
-                var initialPos = transform.position;
-                
-                var newPos = initialPos - new Vector3(StrafeDistance, 0, 0);
-                
-                //transform.position += new Vector3(-StrafeDistance, 0, 0);
-
-                transform.DOMoveX(GameManager.Instance.LanePositions[GameManager.Instance.CurrentLaneIndex].x, StrafeDuration, false).SetEase(Ease.Linear);
-                
-                CanStrafe = false;
-                StartCoroutine(EnableStrafeAfterSeconds(StrafeDuration));
-
-                /*while (transform.position != newPos)
-                {
-                    transform.DOMoveX(transform.position.x - StrafeDistance, 0.5f, false).SetEase(Ease.Linear);
-                    CanStrafe = false;
-                }#1#
-            }
-        }*/
     }
 
     public IEnumerator RotateStraight()
     {
         yield return new WaitForSeconds(0.2f);
+        
         transform.eulerAngles = new Vector3(0, 0, 0);
     }
 
     public IEnumerator WaitForFewSeconds(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
+        
         EnableInvincibility = false;
+        
         //GameManager.Instance.invincTemp.InvincibleOff();
     }
     
     public void Jump(InputAction.CallbackContext context)
     {
-        /*svar sign = Mathf.Sign(context.ReadValue<Vector2>().y);
-        Debug.Log(context.ReadValue<Vector2>());
-
-        if (context.ReadValue<Vector2>() == Vector2.zero)
-            return;*/
+        //Debug.Log(context.ReadValue<float>());
         
-        Debug.Log(context.ReadValue<float>());
         if (context.ReadValue<float>() == 0)
             return;
         
         if (Grounded && CanJump)
         {
             Animator.SetTrigger("Jump");
-            Debug.Log("Jumping");
+            
+            //Debug.Log("Jumping");
+            
             Rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            Debug.Log("can't jump jumping started");
+            
+            //Debug.Log("can't jump jumping started");
+            
             Jumping = true;
-            //Rb.velocity += Vector3.up * JumpForce;
         }
         else if (!Grounded && Jumping)
         {
             Animator.SetTrigger("Fall");
-            Debug.Log("Force falling");
-            Rb.AddForce(-Vector3.up * JumpForce * 2, ForceMode.Impulse);
-            Animator.ResetTrigger("Jump");
-            //Rb.velocity -= Vector3.up * JumpForce * 2;
-        }
-
-        /*if (sign > 0)
-        {
-            if (Grounded && CanJump)
-            {
-                CanJump = false;
-                Debug.Log("Jumping");
-                Rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-                //Rb.velocity += Vector3.up * JumpForce;
-            }
-        }
-        
-        else if (sign < 0)
-        {
-            if (!Grounded && !CanJump)
-            {
-                Debug.Log("Force falling");
-                Rb.AddForce(-Vector3.up * JumpForce * 2, ForceMode.Impulse);
-                //Rb.velocity -= Vector3.up * JumpForce * 2;
-            }
-        }*/
-        
-        ////Debug.Log("Jump pressed");
-        
-        /*if (Grounded && CanJump)
-        {
-            CanJump = false;
-            CanStrafe = false;
-            //Debug.Log("Jumping");
-
-            Rb.velocity += Vector3.up * JumpForce;
             
-            //Rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            Falling = true;
-        }*/
+            //Debug.Log("Force falling");
+            
+            Rb.AddForce(-Vector3.up * JumpForce * 2, ForceMode.Impulse);
+            
+            Animator.ResetTrigger("Jump");
+        }
     }
 
     IEnumerator ResumeMovementAfterSeconds(float time)
     {
         yield return new WaitForSecondsRealtime(time);
+        
         FindObjectOfType<GroundGenerator>().moving = true;
-        Debug.Log("resuming movement");
+        
+        //Debug.Log("resuming movement");
+        
         CanStrafe = true;
+        
         CanJump = true;
-    }
-    
-    IEnumerator EnableStrafeAfterSeconds(float time)
-    {
-        yield return new WaitForSecondsRealtime(time);
-        CanStrafe = true;
     }
 
     public void GainInvincibility()
     {
-        if (GameManager.Instance.Fuel == GameManager.Instance.MaxFuel)
-        {
-            EnableInvincibility = true;
-            //GameManager.Instance.invincTemp.InvincibleOn();
-        }
+        EnableInvincibility = true;
+        
+        //GameManager.Instance.invincTemp.InvincibleOn();
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ChaseTrigger") && EnableInvincibility == false)
+        if (other.gameObject.CompareTag("ChaseTrigger") && !EnableInvincibility)
         {
             StopCoroutine(GameManager.Instance.Player.movementCooldownRoutine);
 
             GameManager.Instance.StartGameOver();
         }
-        else if (other.gameObject.CompareTag("Obstacle") && EnableInvincibility == true)
+        
+        else if (other.gameObject.CompareTag("Obstacle"))
         {
-            Destroy(other.gameObject);
-            StartCoroutine(WaitForFewSeconds(5));
+            OnHitObstacle(other, EnableInvincibility);
         }
-        else if (other.gameObject.CompareTag("Obstacle") && EnableInvincibility == false)
+
+        else if (other.gameObject.CompareTag("Refuel") && !EnableInvincibility)
         {
-            GameManager.Instance.LoseFuel(GameManager.Instance.FuelLossAmount);
-            GameManager.Instance.LoseSpeed();
+            OnEnterRefuel(Grounded);
+        }
+    }
+
+    private void OnEnterRefuel(bool grounded)
+    {
+        if (grounded)
+        {
+            GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount);
 
             GameManager.Instance.GroundGenerator.moving = false;
-            
+
             StopCoroutine(GameManager.Instance.AddToMultiplier());
-            
+
             CanJump = false;
-            Debug.Log("can't jump obstacle");
+            Debug.Log("can't jump refuel");
             CanStrafe = false;
-            
-            other.transform.gameObject.SetActive(false);
 
             if (movementCooldownRoutine != null)
             {
                 StopCoroutine(movementCooldownRoutine);
-                ////Debug.Log("coroutine already running, stopping and starting");
+                //Debug.Log("coroutine already running, stopping and starting");
             }
 
             if (!GameManager.Instance.GameOver)
             {
                 movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
             }
+        }
+        else
+        {
+            GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount / 2);
+        }
+
+        if (GameManager.Instance.Fuel >= GameManager.Instance.MaxFuel)
+        {
+            GainInvincibility();
+        }
+
+        GameManager.Instance.musician.PlaySound(1);
+    }
+
+    private void OnHitObstacle(Collider other, bool invincible)
+    {
+        if (invincible)
+        {
+            Destroy(other.gameObject);
             
+            StartCoroutine(WaitForFewSeconds(5));
+        }
+        
+        else
+        {
+            GameManager.Instance.LoseFuel(GameManager.Instance.FuelLossAmount);
+
+            GameManager.Instance.LoseSpeed();
+
+            GameManager.Instance.GroundGenerator.moving = false;
+
+            StopCoroutine(GameManager.Instance.AddToMultiplier());
+
+            CanJump = false;
+
+            //Debug.Log("can't jump obstacle");
+
+            CanStrafe = false;
+
+            other.transform.gameObject.SetActive(false);
+
+            if (movementCooldownRoutine != null)
+            {
+                StopCoroutine(movementCooldownRoutine);
+                
+                //Debug.Log("coroutine already running, stopping and starting");
+            }
+
+            if (!GameManager.Instance.GameOver)
+            {
+                movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
+            }
+
             var origin = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-            
+
             Instantiate(Impact, origin, Quaternion.identity);
+
             Impact.GetComponent<ParticleSystem>().Play();
 
             GameManager.Instance.musician.PlaySound(2);
-            
+
             other.transform.GetComponent<ObstacleBehaviour>().roadParent.SetScoreTriggers(false);
 
             GameManager.Instance.ChaseManager.TimesHit++;
-            
+
             StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());
 
-            /*if (GameManager.Instance.ChaseManager.TimesHit >= GameManager.Instance.ChaseManager.MaxTimesHit)
-            {
-                if (GameManager.Instance.ChaseManager._chaseCoroutine == null)
-                {
-                    GameManager.Instance.ChaseManager._chaseCoroutine = StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());   
-                }
-                else
-                {
-                    StopCoroutine(GameManager.Instance.ChaseManager._chaseCoroutine);
-                    StartCoroutine(GameManager.Instance.ChaseManager.GetCloser());
-                }
-            }*/
-            
             GameManager.Instance.ChaseManager.NoHitTimer = 0;
         }
-        else if (other.gameObject.CompareTag("Refuel") && EnableInvincibility == false)
-        {
-            if (Grounded)
-            {
-                GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount);
-                
-                GameManager.Instance.GroundGenerator.moving = false;
-            
-                StopCoroutine(GameManager.Instance.AddToMultiplier());
-            
-                CanJump = false;
-                Debug.Log("can't jump refuel");
-                CanStrafe = false;
-            
-                if (movementCooldownRoutine != null)
-                {
-                    StopCoroutine(movementCooldownRoutine);
-                    ////Debug.Log("coroutine already running, stopping and starting");
-                }
-            
-                if (!GameManager.Instance.GameOver)
-                {
-                    movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
-                }
-            }
-            else
-            {
-                GameManager.Instance.GainFuel(GameManager.Instance.FuelGainAmount / 2);
-                
-                //GameManager.Instance.GroundGenerator.moving = false;
-            
-                //StopCoroutine(GameManager.Instance.AddToMultiplier());
-            
-                //CanJump = false;
-                //Debug.Log("can't jump refuel");
-                //CanStrafe = false;
-            
-                /*if (movementCooldownRoutine != null)
-                {
-                    StopCoroutine(movementCooldownRoutine);
-                    ////Debug.Log("coroutine already running, stopping and starting");
-                }
-            
-                if (!GameManager.Instance.GameOver)
-                {
-                    movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
-                }*/
-            }
-            GameManager.Instance.musician.PlaySound(1);
-            // Add coroutine that changes speed multiplier to 1 temporarily and then resets it to what it was before
-
-            
-
-            //         Destroy(other.gameObject);
-        }
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -435,14 +324,6 @@ public class InputTest : MonoBehaviour
             Jumping = false;
             Animator.ResetTrigger("Jump");
             Animator.ResetTrigger("Fall");
-
-            /*if (!Grounded)
-            {
-                Grounded = true;
-                CanJump = true;
-                CanStrafe = true;
-                Falling = false;
-            }*/
         }
     }
 
@@ -455,9 +336,7 @@ public class InputTest : MonoBehaviour
     private void OnDrawGizmos()
     {
         var pos = transform.position - GroundCheckDistance;
-        //Gizmos.DrawWireCube(pos, new Vector3(GroundCheckRadius, GroundCheckRadius * 2, GroundCheckRadius));
+        
         Gizmos.DrawWireSphere(pos, GroundCheckRadius);
-        //Gizmos.DrawWireSphere(pos, GroundCheckRadius);
-        //Gizmos.DrawWireSphere(transform.position + GroundCheckDistance, GroundCheckRadius);
     }
 }

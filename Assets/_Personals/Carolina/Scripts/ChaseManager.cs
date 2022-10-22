@@ -49,9 +49,7 @@ public class ChaseManager : MonoBehaviour
         var currentPosition = ChaseTrigger.transform.position;
             
         var newPosition = currentPosition + new Vector3(0, 0, _moveAmount);
-            
-        //transform.position = Vector3.Lerp(currentPosition, newPosition, _speed * Time.deltaTime);
-            
+
         _lerpTimeElapsed = 0;
         
         while (_lerpTimeElapsed < _lerpDuration)

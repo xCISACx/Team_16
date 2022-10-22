@@ -50,26 +50,15 @@ public class GameUIManager : MonoBehaviour
     private void Awake()
     {
         restartGameButton.onClick.AddListener(RestartGameButtonPressed);
+        
         exitGameButton1.onClick.AddListener(ExitGameButtonPressed);
-        //exitGameButton2.onClick.AddListener(ExitGameButtonPressed);
     }
 
     private void OnDisable()
     {
         restartGameButton.onClick.RemoveListener(RestartGameButtonPressed);
+        
         exitGameButton1.onClick.RemoveListener(ExitGameButtonPressed);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SaveHighScore()
@@ -81,13 +70,15 @@ public class GameUIManager : MonoBehaviour
         if (GameManager.Instance.ScoreManager.Scores.Count < 1)
         {
             GameManager.Instance.ScoreManager.AddScore(newScore, false, 0);
+            
             GameManager.Instance.ScoreManager.SaveScore();
         }
         
         else if (GameManager.Instance.ScoreManager.Scores.Count >= 1)
         {
             var lowerScores = GameManager.Instance.ScoreManager.Scores.Where(x => x.ScoreValue <= GameManager.Instance.Score).ToList();
-            Debug.Log(lowerScores);
+            
+            //Debug.Log(lowerScores);
 
             if (lowerScores.Count > 0)
             {
@@ -103,9 +94,12 @@ public class GameUIManager : MonoBehaviour
 
         if (GameManager.Instance.ScoreManager.Scores.Count >= 10)
         {
-            Debug.Log("scores at max, removing lowest one");
+            //Debug.Log("scores at max, removing lowest one");
+            
             GameManager.Instance.ScoreManager.Scores = GameManager.Instance.ScoreManager.Scores.OrderByDescending(x => x.ScoreValue).ToList();
+            
             GameManager.Instance.ScoreManager.Scores.RemoveAt(GameManager.Instance.ScoreManager.Scores.Count - 1);
+            
             GameManager.Instance.ScoreManager.SaveScore();
         }
 
@@ -143,21 +137,17 @@ public class GameUIManager : MonoBehaviour
     
     void RestartGameButtonPressed()
     {
-        //gameCanvas.enabled = true;
-        //restartMenuCanvas.enabled = false;
-        //mainMenuCanvas.enabled = false;
         GameManager.Instance.Initialised = false;
-        //Debug.Log("init " + GameManager.Instance.Initialised);
-        GameManager.Instance.ResetGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //Debug.Log(2);
         
+        //Debug.Log("init " + GameManager.Instance.Initialised);
+        
+        GameManager.Instance.ResetGame();
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
     void ExitGameButtonPressed()
     {
-        //SceneManager.LoadScene(_mainMenuScene);
         Application.Quit();
-        //Debug.Log(3);
-        
     }
 }

@@ -14,23 +14,10 @@ public class ScoreManager : MonoBehaviour
         LoadScores();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void LoadScores()
     {
-        //var json = PlayerPrefs.GetString("scores", "{}");
-        //Scores = JsonUtility.FromJson<List<Score>>(json);
         Scores = GameManager.Instance.Prefs.Scores;
+        
         Scores = Scores.OrderByDescending(x => x.ScoreValue).ToList();
         
         if (ScoreUI)
@@ -63,8 +50,6 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore()
     {
-        //var json = JsonUtility.ToJson(Scores);
         GameManager.Instance.Prefs.Scores = Scores;
-        //PlayerPrefs.SetString("scores", json);
     }
 }

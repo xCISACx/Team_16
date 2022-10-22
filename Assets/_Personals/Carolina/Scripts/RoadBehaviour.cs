@@ -33,25 +33,17 @@ public class RoadBehaviour : MonoBehaviour
 
     public TileType Type;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     [ContextMenu("Gather References")]
     private void OnValidate()
     {
         Obstacles = SpawnsParent.GetComponentsInChildren<ObstacleParentBehaviour>(true).ToList();
+        
         ScoreTriggers = FindTagObjects(SpawnsParent, "ScoreTrigger");
+        
         RefuelingStations = SpawnsParent.GetComponentsInChildren<RefuelStationBehaviour>(true).ToList();
+        
         PropsParent = FindTagObjects(gameObject, "PropsParent")[0];
+        
         PropSets = FindTagObjects(PropsParent, "PropSet");
     }
 
@@ -66,7 +58,7 @@ public class RoadBehaviour : MonoBehaviour
         
         foreach (Transform t in parent.GetComponentsInChildren<Transform>(true))
         {
-            if (t.tag == tag)
+            if (t.CompareTag(tag))
             {
                 objs.Add(t.gameObject);
             }
@@ -79,7 +71,7 @@ public class RoadBehaviour : MonoBehaviour
     {
         GameManager.Instance.GroundGenerator.CanSpawnObject = false;
         
-        var count = 0;
+        //var count = 0;
         
         if (refuel)
         {
@@ -101,16 +93,11 @@ public class RoadBehaviour : MonoBehaviour
 
             RefuelingStation = newStation;
 
-            //GameManager.Instance.DropManager.SetDropletSpawnpoint(newStation.GetComponent<RefuelStationBehaviour>().DropLetSpawnPoint.transform);
-            //StartCoroutine(GameManager.Instance.DropManager.spawnDroplets(newStation.GetComponent<RefuelStationBehaviour>().DropLetSpawnPoint.transform));
-
             GameManager.Instance.GroundGenerator.activeFuelStations.Add(newStation);
 
-            //GameManager.Instance.GroundGenerator.CanSpawnObject = true;
-                
             //Debug.Log("spawning fuel station " + road.name);
 
-            count++;
+            //count++;
 
             //Debug.Log(count + " fuel stations spawned");
                 
@@ -130,7 +117,6 @@ public class RoadBehaviour : MonoBehaviour
         {
             foreach (var obstacle in Obstacles)
             {
-                Debug.Log("deactivating obstacles " + road.name);
                 obstacle.gameObject.SetActive(false);
             }
 
@@ -196,12 +182,14 @@ public class RoadBehaviour : MonoBehaviour
         foreach (var station in RefuelingStations)
         {
             //Debug.Log("deactivating stations " + gameObject.name);
+            
             station.gameObject.SetActive(false);
         }
 
         foreach (var obstacle in Obstacles)
         {
             //Debug.Log("deactivating obstacles " + gameObject.name);
+            
             obstacle.gameObject.SetActive(false);
         }
 

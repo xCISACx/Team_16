@@ -33,8 +33,11 @@ public class ScoreUI : MonoBehaviour
         for (int i = 0; i < scores.Count; i++)
         {
             var row = Instantiate(RowUI, transform).GetComponent<RowUI>();
+            
             row.Rank.text = (i + 1).ToString();
+            
             row.Name.text = scores[i].Name;
+            
             row.Score.text = scores[i].ScoreValue.ToString();
         }
     }
