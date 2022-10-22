@@ -303,6 +303,13 @@ public class GameManager : MonoBehaviour
         Prefs.Scores.Clear();
         
         ScoreManager.Scores.Clear();
+
+        for (int i = 0; i < 10; i++)
+        {
+            Prefs.Scores.Add(new Score("---", 0));
+            
+            ScoreManager.Scores.Add(new Score("---", 0));
+        }
         
         ScoreManager.ScoreUI.Populate();
         
