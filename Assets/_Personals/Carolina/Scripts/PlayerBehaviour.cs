@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using Unity.VisualScripting;
 
-public class InputTest : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
     public float StrafeDistance;
     public Rigidbody Rb;
@@ -192,7 +192,7 @@ public class InputTest : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ChaseTrigger") && !EnableInvincibility)
         {
-            StopCoroutine(GameManager.Instance.Player._movementCooldownRoutine);
+            StopCoroutine(_movementCooldownRoutine);
 
             GameManager.Instance.StartGameOver();
         }

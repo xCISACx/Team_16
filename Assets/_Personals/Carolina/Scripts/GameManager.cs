@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public ScoreManager ScoreManager;
 
-    public InputTest Player;
+    public PlayerBehaviour Player;
     
     public bool GameStarted;
     public bool GameOver;

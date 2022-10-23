@@ -4819,7 +4819,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2047889049, guid: 305168aee4426a246abf05dca2e47548, type: 3}
       propertyPath: Scores.Array.size
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2047889049, guid: 305168aee4426a246abf05dca2e47548, type: 3}
       propertyPath: ScoreData.Scores.Array.size
