@@ -137,8 +137,6 @@ public class GameUIManager : MonoBehaviour
     
     void RestartGameButtonPressed()
     {
-        GameManager.Instance.Initialised = false;
-        
         //Debug.Log("init " + GameManager.Instance.Initialised);
         
         GameManager.Instance.ResetGame();

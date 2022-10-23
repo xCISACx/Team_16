@@ -39,8 +39,7 @@ public class GameManager : MonoBehaviour
     public int FuelGainAmount = 10;
     
     [SerializeField] private int DefaultFuel = 50;
-    [SerializeField] public bool Initialised;
-    
+
     public float Speed = 4;
     public float SpeedMultiplier = 1;
     public float MaxSpeedMultiplier = 300;
@@ -173,12 +172,10 @@ public class GameManager : MonoBehaviour
     public void UpdateFuelUI()
     {
         GameUIManager.currentWaterLevelPercentage = ( (float) Fuel / MaxFuel) * 100;
-        
-        //Debug.Log(GameUIManager.currentWaterLevelPercentage);
-        
+
         GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
 
-        if (GameManager.Instance.GameStarted)
+        if (GameStarted)
         {
             GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
         }
@@ -187,12 +184,11 @@ public class GameManager : MonoBehaviour
         {
             Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));   
         }
-        //Debug.Log(GameUIManager.waterFillImage.fillAmount);
     }
 
     public void UpdateSpeedUI()
     {
-        if (!GameManager.Instance.GameStarted) return;
+        if (!GameStarted) return;
         
         GameUIManager.CurrentSpeed.text = Mathf.RoundToInt(SpeedMultiplier).ToString();
         
@@ -218,9 +214,7 @@ public class GameManager : MonoBehaviour
         Fuel = DefaultFuel;
         
         CurrentLaneIndex = 1;
-        
-        Initialised = false;
-        
+
         GameUIManager.CanSaveHighScore = true;
     }
 
@@ -252,7 +246,6 @@ public class GameManager : MonoBehaviour
         
         musician.PlayMusic();
         
-        Initialised = true;
         //Debug.Log("Game Manager Init Done");
     }
 
@@ -305,7 +298,7 @@ public class GameManager : MonoBehaviour
     
     public void ClearHighScores()
     {
-        Debug.Log("CLEARING");
+        //Debug.Log("CLEARING");
         Prefs.Scores.Clear();
         
         ScoreManager.Scores.Clear();
