@@ -100,17 +100,6 @@ public class ScoreManager : MonoBehaviour
         }
     }*/
 
-    public void LoadScores()
-    {
-        Scores = GameManager.Instance.Prefs.Scores;
-        
-        Scores = Scores.OrderByDescending(x => x.ScoreValue).ToList();
-        
-        if (ScoreUI)
-        {
-            ScoreUI.Populate();   
-        }
-    }
 
     public IEnumerable<Score> GetHighScores()
     {
@@ -139,6 +128,18 @@ public class ScoreManager : MonoBehaviour
     public void SaveScore()
     {
         GameManager.Instance.Prefs.Scores = Scores;
+    }
+    
+    public void LoadScores()
+    {
+        Scores = GameManager.Instance.Prefs.Scores;
+        
+        Scores = Scores.OrderByDescending(x => x.ScoreValue).ToList();
+        
+        if (ScoreUI)
+        {
+            ScoreUI.Populate();   
+        }
     }
     
     /*[ContextMenu("Save Score")]

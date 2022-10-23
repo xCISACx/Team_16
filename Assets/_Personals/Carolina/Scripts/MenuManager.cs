@@ -203,7 +203,7 @@ public class MenuManager : MonoBehaviour
         GameManager.Instance.ScoreManager.LoadScores();
     }
     
-    public void CloseScoreBoard() //TODO: MAKE TOGGLE?
+    public void CloseScoreBoard()
     {
         Scoreboard.gameObject.SetActive(false);
     }

@@ -102,7 +102,7 @@ public class GroundGenerator : MonoBehaviour
             
             tempRoad.Type = RoadBehaviour.TileType.None;
             
-            Debug.Log("can't spawn obstacle because " + SpawnedRoad[SpawnedRoad.Count - 1].name + " was jumping " + tempRoad.name);
+            //Debug.Log("can't spawn obstacle because " + SpawnedRoad[SpawnedRoad.Count - 1].name + " was jumping " + tempRoad.name);
         }
         else if (SpawnedRoad[SpawnedRoad.Count - 1].Type != RoadBehaviour.TileType.Refuel && 
                  SpawnedRoad[SpawnedRoad.Count - 1].Type != RoadBehaviour.TileType.JumpingObstacle && 
@@ -110,7 +110,7 @@ public class GroundGenerator : MonoBehaviour
         {
             CanSpawnObject = true;
             
-            Debug.Log("can spawn obstacle because id is not a multiple of 2 and " + SpawnedRoad[SpawnedRoad.Count - 1].name + " wasn't refuel or jumping " + tempRoad.name);
+            //Debug.Log("can spawn obstacle because id is not a multiple of 2 and " + SpawnedRoad[SpawnedRoad.Count - 1].name + " wasn't refuel or jumping " + tempRoad.name);
         }
         
         SpawnedRoad.RemoveAt(0);

@@ -49,8 +49,6 @@ public class MainMenuManager : MonoBehaviour
     public void ScoreBoard()
     {
         GameManager.Instance.MenuManager.ScoreBoard();
-        
-        //GameManager.Instance.ScoreManager.LoadScores();
     }
     
     public void CloseScoreBoard()
@@ -58,18 +56,18 @@ public class MainMenuManager : MonoBehaviour
         GameManager.Instance.MenuManager.CloseScoreBoard();
     }
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene(GameScene);
-        
-        GameManager.Instance.GameStarted = true;
-    }
-
     public void ChangeMaxSpeed(float value)
     {
         GameManager.Instance.MaxSpeedMultiplier = value;
         
         _maxSpeedText.text = value.ToString();
+    }
+    
+    public void StartGame()
+    {
+        SceneManager.LoadScene(GameScene);
+        
+        GameManager.Instance.GameStarted = true;
     }
 
     public void Quit()

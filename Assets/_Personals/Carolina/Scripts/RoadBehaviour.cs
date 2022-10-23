@@ -70,89 +70,97 @@ public class RoadBehaviour : MonoBehaviour
     public GameObject SpawnObject(RoadBehaviour road, bool refuel)
     {
         GameManager.Instance.GroundGenerator.CanSpawnObject = false;
-        
-        //var count = 0;
-        
+
         if (refuel)
         {
-            foreach (var station in RefuelingStations)
-            {
-                //Debug.Log("deactivating stations " + road.name);
-                station.gameObject.SetActive(false);
-            }
-
-            if (GameManager.Instance.GroundGenerator.activeFuelStations.Count >= 1) return null;
-            
-            GameObject newStation = null;
-
-            var num = UnityEngine.Random.Range(0, RefuelingStations.Count);
-
-            newStation = RefuelingStations[num].gameObject;
-
-            newStation.SetActive(true);
-
-            RefuelingStation = newStation;
-
-            GameManager.Instance.GroundGenerator.activeFuelStations.Add(newStation);
-
-            //Debug.Log("spawning fuel station " + road.name);
-
-            //count++;
-
-            //Debug.Log(count + " fuel stations spawned");
-                
-            road.SetScoreTriggers(true);
-
-            HasSpawn = true;
-                
-            road.Type = TileType.Refuel;
-            
-            //Debug.Log("setting " + road.name + "'s type to refuel");
-            
-            GameManager.Instance.GroundGenerator.CanSpawnObject = true;
-
-            return newStation;
+            return SpawnRefuelStation(road);
         }
         else
         {
-            foreach (var obstacle in Obstacles)
-            {
-                obstacle.gameObject.SetActive(false);
-            }
-
-            var num = Random.Range(0, Obstacles.Count);
-
-            var newObstacle = Obstacles[num];
-
-            while (newObstacle.Type == GameManager.Instance.GroundGenerator.LastSpawnedObstacleType)
-            {
-                num = Random.Range(0, Obstacles.Count);
-
-                newObstacle = Obstacles[num];
-
-                break;
-            }
-
-            newObstacle.gameObject.SetActive(true);
-            
-            GameManager.Instance.GroundGenerator.CanSpawnObject = true;
-            
-            //Debug.Log("spawning obstacle " + newObstacle + " on " + road.name);
-            
-            HasSpawn = true;
-
-            road.Type = (TileType)
-                Array.IndexOf(Enum.GetValues(newObstacle.Type.GetType()), newObstacle.Type);
-
-            GameManager.Instance.GroundGenerator.LastSpawnedObstacleType = road.Type;
-            
-            //Debug.Log("setting " + road.name + "'s type to " + road.Type);
-            
-            GameManager.Instance.GroundGenerator.CanSpawnObject = true;
-
-            return newObstacle.gameObject;
+            return SpawnNewObstacleObject(road);
         }
 
+    }
+
+    private GameObject SpawnNewObstacleObject(RoadBehaviour road)
+    {
+        foreach (var obstacle in Obstacles)
+        {
+            obstacle.gameObject.SetActive(false);
+        }
+
+        var num = Random.Range(0, Obstacles.Count);
+
+        var newObstacle = Obstacles[num];
+
+        while (newObstacle.Type == GameManager.Instance.GroundGenerator.LastSpawnedObstacleType)
+        {
+            num = Random.Range(0, Obstacles.Count);
+
+            newObstacle = Obstacles[num];
+
+            break;
+        }
+
+        newObstacle.gameObject.SetActive(true);
+
+        GameManager.Instance.GroundGenerator.CanSpawnObject = true;
+
+        //Debug.Log("spawning obstacle " + newObstacle + " on " + road.name);
+
+        HasSpawn = true;
+
+        road.Type = (TileType)
+            Array.IndexOf(Enum.GetValues(newObstacle.Type.GetType()), newObstacle.Type);
+
+        GameManager.Instance.GroundGenerator.LastSpawnedObstacleType = road.Type;
+
+        //Debug.Log("setting " + road.name + "'s type to " + road.Type);
+
+        GameManager.Instance.GroundGenerator.CanSpawnObject = true;
+
+        return newObstacle.gameObject;
+    }
+
+    private GameObject SpawnRefuelStation(RoadBehaviour road)
+    {
+        foreach (var station in RefuelingStations)
+        {
+            //Debug.Log("deactivating stations " + road.name);
+            station.gameObject.SetActive(false);
+        }
+
+        if (GameManager.Instance.GroundGenerator.activeFuelStations.Count >= 1) return null;
+
+        GameObject newStation = null;
+
+        var num = UnityEngine.Random.Range(0, RefuelingStations.Count);
+
+        newStation = RefuelingStations[num].gameObject;
+
+        newStation.SetActive(true);
+
+        RefuelingStation = newStation;
+
+        GameManager.Instance.GroundGenerator.activeFuelStations.Add(newStation);
+
+        //Debug.Log("spawning fuel station " + road.name);
+
+        //count++;
+
+        //Debug.Log(count + " fuel stations spawned");
+
+        road.SetScoreTriggers(true);
+
+        HasSpawn = true;
+
+        road.Type = TileType.Refuel;
+
+        //Debug.Log("setting " + road.name + "'s type to refuel");
+
+        GameManager.Instance.GroundGenerator.CanSpawnObject = true;
+
+        return newStation;
     }
 
     public void SpawnPropSet()
