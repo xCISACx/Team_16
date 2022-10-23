@@ -23,12 +23,13 @@ public class ScoreUI : MonoBehaviour
 
     public void Populate()
     {
-        var scores = GameManager.Instance.Prefs.Scores.OrderByDescending(x => x.ScoreValue).ToList();
-
         foreach (var row in GetComponentsInChildren<RowUI>())
         {
-            Destroy(row.gameObject);
+            DestroyImmediate(row.gameObject);
         }
+
+        //var scores = GameManager.Instance.ScoreManager.ScoreData.Scores.ToList();
+        var scores = GameManager.Instance.Prefs.Scores.ToList();
         
         for (int i = 0; i < scores.Count; i++)
         {

@@ -23,30 +23,10 @@ MonoBehaviour:
   ResolutionH: 0
   Fullscreen: 0
   FullScreenMode: 3
-  Scores:
-  - Name: Edward
-    ScoreValue: 2900
-  - Name: Alexander
-    ScoreValue: 1500
-  - Name: Vincent, Adam, Fredrik
-    ScoreValue: 810
-  - Name: Jacob
-    ScoreValue: 760
-  - Name: Greta
-    ScoreValue: 210
-  - Name: ---
-    ScoreValue: 0
-  - Name: ---
-    ScoreValue: 0
-  - Name: ---
-    ScoreValue: 0
-  - Name: ---
-    ScoreValue: 0
-  - Name: ---
-    ScoreValue: 0
-  HighScore: 227
+  HighScore: 7
   CapColour: {r: 0.3882353, g: 0.1254902, b: 0.101960786, a: 1}
   HairColour: {r: 0.2, g: 0.16862746, b: 0.16862746, a: 1}
   BodyColour: {r: 1, g: 0.82124645, b: 0.6273585, a: 0}
   ShirtColour: {r: 0.6392157, g: 0.40784314, b: 0.18039216, a: 1}
   PantsColour: {r: 0.15686275, g: 0.14901961, b: 0.16078432, a: 1}
+  scoreDataPath: C:/Users/Phoenix/AppData/LocalLow/DefaultCompany/Team_16/ScoreData.dat

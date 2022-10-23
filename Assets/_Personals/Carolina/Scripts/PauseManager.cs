@@ -37,9 +37,12 @@ public class PauseManager : MonoBehaviour
             else
             {
                 Time.timeScale = GameManager.Instance.CurrentTimeScale;
-                
-                MenuManager.CloseOptions();
-                
+
+                if (MenuManager)
+                {
+                    MenuManager.CloseOptions();   
+                }
+
                 Cursor.lockState = CursorLockMode.Locked;
             }   
         }

@@ -25,8 +25,13 @@ public class MainMenuManager : MonoBehaviour
         _maxSpeedText.text = GameManager.Instance.MaxSpeedMultiplier.ToString();
         
         GameManager.Instance.ScoreManager.LoadScores();
+
+        if (GameManager.Instance.ScoreManager.Scores.Count > 0)
+        {
+            _highScoreText.text = GameManager.Instance.ScoreManager.Scores[0].ScoreValue.ToString();
+        }
         
-        _highScoreText.text = GameManager.Instance.Prefs.Scores[0].ScoreValue.ToString();
+        Debug.Log(GameManager.Instance.musician != null);
         
         GameManager.Instance.musician.PlayMusic();
     }
@@ -45,7 +50,7 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.MenuManager.ScoreBoard();
         
-        GameManager.Instance.ScoreManager.LoadScores();
+        //GameManager.Instance.ScoreManager.LoadScores();
     }
     
     public void CloseScoreBoard()

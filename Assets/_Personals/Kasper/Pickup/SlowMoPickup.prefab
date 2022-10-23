@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slowdownFactor: 0.2
-  slowdownLength: 0.5
+  slowdownLength: 0.2

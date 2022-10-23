@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3108111257265374956}
   - component: {fileID: 3884863237088380776}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: BusTopCollider
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -513,7 +513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa256bd212097e94c897bbd930982e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropLetSpawnPoint: {fileID: 0}
 --- !u!1 &1523362987915722802
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2211216586437557816}
   - component: {fileID: 1672962410985935872}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: BusTopCollider
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1024,7 +1023,7 @@ GameObject:
   - component: {fileID: 7005711602063787645}
   - component: {fileID: 3553431263005999617}
   - component: {fileID: 5694275853143456837}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Road
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1119,7 +1118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6655078157499679743}
   - component: {fileID: 8984696595944362908}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: BusTopCollider
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2217,7 +2216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa256bd212097e94c897bbd930982e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropLetSpawnPoint: {fileID: 0}
 --- !u!1 &4754366843970613562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,7 +3226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa256bd212097e94c897bbd930982e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropLetSpawnPoint: {fileID: 0}
 --- !u!1 &6743573529571621678
 GameObject:
   m_ObjectHideFlags: 0

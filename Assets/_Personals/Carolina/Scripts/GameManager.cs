@@ -177,9 +177,12 @@ public class GameManager : MonoBehaviour
         //Debug.Log(GameUIManager.currentWaterLevelPercentage);
         
         GameUIManager.currentWaterLevelPercentageText.text = GameUIManager.currentWaterLevelPercentage.ToString();
-        
-        GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
-        
+
+        if (GameManager.Instance.GameStarted)
+        {
+            GameUIManager.waterFillImage.fillAmount = Mathf.InverseLerp(0, MaxFuel, Fuel);
+        }
+
         if (Player)
         {
             Player.TankWater.GetComponent<MeshRenderer>().material.SetFloat("_Fill", Mathf.InverseLerp(0, MaxFuel, Fuel));   
@@ -189,6 +192,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateSpeedUI()
     {
+        if (!GameManager.Instance.GameStarted) return;
+        
         GameUIManager.CurrentSpeed.text = Mathf.RoundToInt(SpeedMultiplier).ToString();
         
         foreach (var wheel in Player.Wheels)
@@ -265,7 +270,7 @@ public class GameManager : MonoBehaviour
 
             if (Time.timeScale != 0)
             {
-                LoseFuel(Mathf.RoundToInt((GameManager.Instance.SpeedMultiplier / 5) * Time.timeScale));   
+                LoseFuel(Mathf.RoundToInt((SpeedMultiplier / 8) * Time.timeScale));
             }
 
             UpdateSpeedUI();
@@ -300,6 +305,7 @@ public class GameManager : MonoBehaviour
     
     public void ClearHighScores()
     {
+        Debug.Log("CLEARING");
         Prefs.Scores.Clear();
         
         ScoreManager.Scores.Clear();

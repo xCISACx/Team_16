@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "New Prefs", menuName = "Prefs")]
 public class Prefs : ScriptableObject
 {
@@ -32,4 +33,6 @@ public class Prefs : ScriptableObject
     public Color BodyColour;
     public Color ShirtColour;
     public Color PantsColour;
+
+    public string scoreDataPath;
 }

@@ -15,19 +15,19 @@ public class InputTest : MonoBehaviour
     public bool CanJump;
     public bool Grounded;
     public bool Jumping;
-    [SerializeField] private Vector3 GroundCheckDistance;
-    [SerializeField] private float GroundCheckRadius;
-    [SerializeField] private LayerMask GroundLayerMask;
-    public Coroutine movementCooldownRoutine = null;
+    [SerializeField] private Vector3 _groundCheckDistance;
+    [SerializeField] private float _groundCheckRadius;
+    [SerializeField] private LayerMask _groundLayerMask;
+    private Coroutine _movementCooldownRoutine = null;
     public float StrafeDuration;
-    [SerializeField] private float fallMultiplier;
-    [SerializeField] private GameObject Impact;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float maxJumpHeight;
-    private Vector3 velocity;
+    [SerializeField] private float _fallMultiplier;
+    [SerializeField] private GameObject _impact;
+    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _maxJumpHeight;
+    private Vector3 _velocity;
     [SerializeField] private float _airTime;
     [SerializeField] private float _maxAirTime;
-    [SerializeField] private Controls Controls;
+    [SerializeField] private Controls _controls;
     [SerializeField] public GameObject TankWater;
     public List<GameObject> Wheels;
     public SkinnedMeshRenderer ModelMeshRenderer;
@@ -35,13 +35,14 @@ public class InputTest : MonoBehaviour
     public Animator Animator;
 
     public bool EnableInvincibility = false;
+    private Coroutine _invincibilityCooldownRoutine;
 
     private void Awake()
     {
         Animator = GetComponent<Animator>();
-        Controls = new Controls();
+        _controls = new Controls();
         
-        Controls.Player.Move.canceled += OnMoveCanceled;
+        _controls.Player.Move.canceled += OnMoveCanceled;
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext obj)
@@ -51,20 +52,34 @@ public class InputTest : MonoBehaviour
 
     private void OnEnable()
     {
-        Controls = new Controls();
-        Controls.Enable();
+        _controls = new Controls();
+        _controls.Enable();
     }
 
     private void OnDisable()
     {
         GetComponent<PlayerInput>().actions = null;
-        Controls.Disable();
+        _controls.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Grounded = Physics.CheckSphere(transform.position - GroundCheckDistance, GroundCheckRadius, GroundLayerMask);
+        Grounded = Physics.CheckSphere(transform.position - _groundCheckDistance, _groundCheckRadius, _groundLayerMask);
+        
+        if (!Grounded && _airTime >= _maxAirTime)
+        {
+            Debug.Log("force going down");
+            
+            Rb.AddForce(-Vector3.up * _fallMultiplier);
+            
+            Animator.SetTrigger("Fall");
+        }
+        
+        if (!Grounded && transform.position.y >= _jumpHeight)
+        {
+            _airTime += Time.deltaTime;
+        }
         
         Animator.SetBool("Grounded", Grounded);
     }
@@ -73,21 +88,10 @@ public class InputTest : MonoBehaviour
     {
         if (!Grounded && Rb.velocity.y <= 0) //we're falling
         {
-            Rb.AddForce(-Vector3.up * fallMultiplier);
+            Rb.AddForce(-Vector3.up * _fallMultiplier);
         }
 
-        if (!Grounded && transform.position.y >= jumpHeight)
-        {
-            _airTime += Time.fixedDeltaTime;
-        }
-
-        if (!Grounded && _airTime > _maxAirTime)
-        {
-            Rb.AddForce(-Vector3.up * fallMultiplier);
-            Animator.SetTrigger("Fall");
-        }
-
-        var clampedPosY = Mathf.Clamp(transform.position.y, 1.01f, jumpHeight);
+        var clampedPosY = Mathf.Clamp(transform.position.y, 1.01f, _jumpHeight);
         transform.position = new Vector3(transform.position.x, clampedPosY, transform.position.z);
     }
 
@@ -188,7 +192,7 @@ public class InputTest : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ChaseTrigger") && !EnableInvincibility)
         {
-            StopCoroutine(GameManager.Instance.Player.movementCooldownRoutine);
+            StopCoroutine(GameManager.Instance.Player._movementCooldownRoutine);
 
             GameManager.Instance.StartGameOver();
         }
@@ -218,15 +222,15 @@ public class InputTest : MonoBehaviour
             Debug.Log("can't jump refuel");
             CanStrafe = false;
 
-            if (movementCooldownRoutine != null)
+            if (_movementCooldownRoutine != null)
             {
-                StopCoroutine(movementCooldownRoutine);
+                StopCoroutine(_movementCooldownRoutine);
                 //Debug.Log("coroutine already running, stopping and starting");
             }
 
             if (!GameManager.Instance.GameOver)
             {
-                movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
+                _movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
             }
         }
         else
@@ -248,7 +252,14 @@ public class InputTest : MonoBehaviour
         {
             Destroy(other.gameObject);
             
-            StartCoroutine(WaitForFewSeconds(5));
+            if (_invincibilityCooldownRoutine != null)
+            {
+                StopCoroutine(_invincibilityCooldownRoutine);
+                
+                //Debug.Log("coroutine already running, stopping and starting");
+            }
+            
+            _invincibilityCooldownRoutine = StartCoroutine(WaitForFewSeconds(5));
         }
         
         else
@@ -269,23 +280,23 @@ public class InputTest : MonoBehaviour
 
             other.transform.gameObject.SetActive(false);
 
-            if (movementCooldownRoutine != null)
+            if (_movementCooldownRoutine != null)
             {
-                StopCoroutine(movementCooldownRoutine);
+                StopCoroutine(_movementCooldownRoutine);
                 
                 //Debug.Log("coroutine already running, stopping and starting");
             }
 
             if (!GameManager.Instance.GameOver)
             {
-                movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
+                _movementCooldownRoutine = StartCoroutine(ResumeMovementAfterSeconds(1f));
             }
 
             var origin = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
 
-            Instantiate(Impact, origin, Quaternion.identity);
+            Instantiate(_impact, origin, Quaternion.identity);
 
-            Impact.GetComponent<ParticleSystem>().Play();
+            _impact.GetComponent<ParticleSystem>().Play();
 
             GameManager.Instance.musician.PlaySound(2);
 
@@ -317,8 +328,8 @@ public class InputTest : MonoBehaviour
             Grounded = true;
             CanJump = true;
             CanStrafe = true;
-            jumpHeight = 0;
-            jumpHeight = transform.position.y + maxJumpHeight;
+            _jumpHeight = 0;
+            _jumpHeight = transform.position.y + _maxJumpHeight;
             _airTime = 0;
 
             Jumping = false;
@@ -335,8 +346,8 @@ public class InputTest : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        var pos = transform.position - GroundCheckDistance;
+        var pos = transform.position - _groundCheckDistance;
         
-        Gizmos.DrawWireSphere(pos, GroundCheckRadius);
+        Gizmos.DrawWireSphere(pos, _groundCheckRadius);
     }
 }
