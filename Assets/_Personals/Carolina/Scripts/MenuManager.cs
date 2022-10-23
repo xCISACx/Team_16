@@ -76,9 +76,7 @@ public class MenuManager : MonoBehaviour
         var newValue = value;
         
         var newVolume = Mathf.Log10(value) * 20f;
-        
-        //Debug.Log("new master volume: " + newVolume);
-        
+
         // for some reason Unity runs this method when the scene updates and GameManager's instance is not set by then so this is a hacky fix
         if (GameManager.Instance)
         {
@@ -158,32 +156,24 @@ public class MenuManager : MonoBehaviour
                 
                 prefs.ResolutionW = 1920;
                 prefs.ResolutionH = 1080;
-                ////Debug.LogError(Screen.width + "x" + Screen.height + " " + Screen.fullScreen);
-                ////Debug.Log("1920x1080");
                 break;
             case 1:
                 Screen.SetResolution(1366, 768, FullScreenMode);
                 
                 prefs.ResolutionW = 1366;
                 prefs.ResolutionH = 768;
-                ////Debug.LogError(Screen.width + "x" + Screen.height + " " + Screen.fullScreen);
-                ////Debug.Log("1366x768");
                 break;
             case 2:
                 Screen.SetResolution(1280, 720, FullScreenMode);
                 
                 prefs.ResolutionW = 1280;
                 prefs.ResolutionH = 720;
-                ////Debug.LogError(Screen.width + "x" + Screen.height + " " + Screen.fullScreen);
-                ////Debug.Log("1280x720");
                 break;
             case 3:
                 Screen.SetResolution(1024, 768, FullScreenMode);
                 
                 prefs.ResolutionW = 1024;
                 prefs.ResolutionH = 768;
-                ////Debug.LogError(Screen.width + "x" + Screen.height + " " + Screen.fullScreen);
-                ////Debug.Log("1024x768");
                 break;
         }
         
@@ -195,6 +185,8 @@ public class MenuManager : MonoBehaviour
         GameManager.Instance.ResetGame();
         
         Time.timeScale = 1;
+
+        GameManager.Instance.CurrentTimeScale = 1;
         
         SceneManager.LoadScene(0);
     }
