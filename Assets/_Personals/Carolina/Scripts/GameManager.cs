@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
         
         ChaseManager = FindObjectOfType<ChaseManager>();
         
-        Player = FindObjectOfType<InputTest>();
+        Player = FindObjectOfType<PlayerBehaviour>();
         
         InitPlayerColours();
         
