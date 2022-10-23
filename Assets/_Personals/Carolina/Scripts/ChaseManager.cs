@@ -32,7 +32,7 @@ public class ChaseManager : MonoBehaviour
 
         if (NoHitTimer > _getAwayThreshold)
         {
-            Debug.Log("chase: player got away");
+            //Debug.Log("chase: player got away");
             
             ChaseTrigger.transform.position = _start.position;
 
@@ -42,7 +42,7 @@ public class ChaseManager : MonoBehaviour
 
     public IEnumerator GetCloser()
     {
-        Debug.Log("chase: getting closer");
+        //Debug.Log("chase: getting closer");
         
         timerActive = false;
         

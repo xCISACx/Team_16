@@ -107,7 +107,7 @@ public class RoadBehaviour : MonoBehaviour
                 
             road.Type = TileType.Refuel;
             
-            Debug.Log("setting " + road.name + "'s type to refuel");
+            //Debug.Log("setting " + road.name + "'s type to refuel");
             
             GameManager.Instance.GroundGenerator.CanSpawnObject = true;
 
@@ -137,7 +137,7 @@ public class RoadBehaviour : MonoBehaviour
             
             GameManager.Instance.GroundGenerator.CanSpawnObject = true;
             
-            Debug.Log("spawning obstacle " + newObstacle + " on " + road.name);
+            //Debug.Log("spawning obstacle " + newObstacle + " on " + road.name);
             
             HasSpawn = true;
 
@@ -146,7 +146,7 @@ public class RoadBehaviour : MonoBehaviour
 
             GameManager.Instance.GroundGenerator.LastSpawnedObstacleType = road.Type;
             
-            Debug.Log("setting " + road.name + "'s type to " + road.Type);
+            //Debug.Log("setting " + road.name + "'s type to " + road.Type);
             
             GameManager.Instance.GroundGenerator.CanSpawnObject = true;
 

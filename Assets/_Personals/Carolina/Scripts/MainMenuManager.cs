@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
             _highScoreText.text = GameManager.Instance.ScoreManager.Scores[0].ScoreValue.ToString();
         }
         
-        Debug.Log(GameManager.Instance.musician != null);
+        //Debug.Log(GameManager.Instance.musician != null);
         
         GameManager.Instance.musician.PlayMusic();
     }
