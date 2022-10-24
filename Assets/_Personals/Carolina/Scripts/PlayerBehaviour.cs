@@ -134,8 +134,15 @@ public class PlayerBehaviour : MonoBehaviour
         
         EnableInvincibility = false;
         
-        //GameManager.Instance.invincTemp.InvincibleOff();
+        GameManager.Instance.invincTemp.InvincibleOff();
     }
+    
+    public void GainInvincibility()
+    {
+        EnableInvincibility = true;
+        
+        GameManager.Instance.invincTemp.InvincibleOn();
+    } 
     
     public void Jump(InputAction.CallbackContext context)
     {
@@ -181,13 +188,6 @@ public class PlayerBehaviour : MonoBehaviour
         CanJump = true;
     }
 
-    public void GainInvincibility()
-    {
-        EnableInvincibility = true;
-        
-        //GameManager.Instance.invincTemp.InvincibleOn();
-    }
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("ChaseTrigger") && !EnableInvincibility)
@@ -250,6 +250,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (invincible)
         {
+            GainInvincibility();
             Destroy(other.gameObject);
             
             if (_invincibilityCooldownRoutine != null)
