@@ -22,10 +22,10 @@ public class PauseManager : MonoBehaviour
             
             PauseCanvas.enabled = GamePaused;
             
-            if (MenuManager)
+            if (GameManager.Instance.MenuManager)
             {
-                MenuManager.CloseOptions();
-                
+                GameManager.Instance.MenuManager.CloseOptions();
+                GameManager.Instance.MenuManager.CloseHowToPlay();
             }
 
             if (GamePaused)
@@ -38,9 +38,10 @@ public class PauseManager : MonoBehaviour
             {
                 Time.timeScale = GameManager.Instance.CurrentTimeScale;
 
-                if (MenuManager)
+                if (GameManager.Instance.MenuManager)
                 {
-                    MenuManager.CloseOptions();   
+                    GameManager.Instance.MenuManager.CloseOptions();   
+                    GameManager.Instance.MenuManager.CloseHowToPlay();
                 }
 
                 Cursor.lockState = CursorLockMode.Locked;

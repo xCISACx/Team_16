@@ -69,7 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (!Grounded && _airTime >= _maxAirTime)
         {
-            Debug.Log("force going down");
+            //Debug.Log("force going down");
             
             Rb.AddForce(-Vector3.up * _fallMultiplier);
             
@@ -219,7 +219,7 @@ public class PlayerBehaviour : MonoBehaviour
             StopCoroutine(GameManager.Instance.AddToMultiplier());
 
             CanJump = false;
-            Debug.Log("can't jump refuel");
+            //Debug.Log("can't jump refuel");
             CanStrafe = false;
 
             if (_movementCooldownRoutine != null)

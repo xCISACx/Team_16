@@ -44,6 +44,11 @@ public class MenuManager : MonoBehaviour
         {
             SettingsPopup.gameObject.SetActive(false);
         }
+
+        if (HowToPlayCanvas)
+        {
+            HowToPlayCanvas.gameObject.SetActive(false);
+        }
     }
 
     public void LoadMenuUIValues()

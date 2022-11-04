@@ -94,7 +94,7 @@ public class GameUIManager : MonoBehaviour
 
         if (GameManager.Instance.ScoreManager.Scores.Count > 10)
         {
-            Debug.Log("scores at max, removing lowest one");
+            //Debug.Log("scores at max, removing lowest one");
             
             GameManager.Instance.ScoreManager.Scores = GameManager.Instance.ScoreManager.Scores.OrderByDescending(x => x.ScoreValue).ToList();
             
