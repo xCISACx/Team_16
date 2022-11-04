@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
 
     public PlayerBehaviour Player;
     
-    public InvincTempScript invincTemp;
-    
     public bool GameStarted;
     public bool GameOver;
 
@@ -233,8 +231,6 @@ public class GameManager : MonoBehaviour
         ChaseManager = FindObjectOfType<ChaseManager>();
         
         Player = FindObjectOfType<PlayerBehaviour>();
-        
-        invincTemp = FindObjectOfType<InvincTempScript>();
         
         InitPlayerColours();
         
