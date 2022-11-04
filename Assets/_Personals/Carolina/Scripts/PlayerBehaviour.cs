@@ -134,7 +134,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         EnableInvincibility = false;
         
-        //GameManager.Instance.invincTemp.InvincibleOff();
+        GameManager.Instance.invincTemp.InvincibleOff();
     }
     
     public void Jump(InputAction.CallbackContext context)
@@ -185,7 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         EnableInvincibility = true;
         
-        //GameManager.Instance.invincTemp.InvincibleOn();
+        GameManager.Instance.invincTemp.InvincibleOn();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -259,7 +259,8 @@ public class PlayerBehaviour : MonoBehaviour
                 //Debug.Log("coroutine already running, stopping and starting");
             }
             
-            _invincibilityCooldownRoutine = StartCoroutine(WaitForFewSeconds(5));
+            StartCoroutine(WaitForFewSeconds(5)); //Does start and disable invinsibility
+
         }
         
         else
