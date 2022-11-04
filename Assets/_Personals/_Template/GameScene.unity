@@ -2682,7 +2682,7 @@ MonoBehaviour:
   TilesToSpawnAtStart: 10
   SpawnedRoad: []
   MainCamera: {fileID: 656281093}
-  refuelSpawnChance: 80
+  refuelSpawnChance: 20
   moving: 1
   activeFuelStations: []
   CanSpawnObject: 1
