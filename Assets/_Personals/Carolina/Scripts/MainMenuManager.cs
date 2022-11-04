@@ -55,6 +55,16 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.MenuManager.CloseScoreBoard();
     }
+    
+    public void HowToPlay()
+    {
+        GameManager.Instance.MenuManager.HowToPlay();
+    }
+    
+    public void CloseHowToPlay()
+    {
+        GameManager.Instance.MenuManager.CloseHowToPlay();
+    }
 
     public void ChangeMaxSpeed(float value)
     {
@@ -73,5 +83,15 @@ public class MainMenuManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+    
+    public void PlayButtonHoverSound()
+    {
+        GameManager.Instance.MenuManager.PlayButtonHoverSound();
+    }
+    
+    public void PlayButtonClickSound()
+    {
+        GameManager.Instance.MenuManager.PlayButtonClickSound();
     }
 }

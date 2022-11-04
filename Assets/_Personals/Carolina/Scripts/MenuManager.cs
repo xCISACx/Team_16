@@ -21,6 +21,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TMP_Text HighScoreText;
     [SerializeField] private GameObject Scoreboard;
+    [SerializeField] private GameObject HowToPlayCanvas;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -206,5 +208,15 @@ public class MenuManager : MonoBehaviour
     public void CloseScoreBoard()
     {
         Scoreboard.gameObject.SetActive(false);
+    }
+    
+    public void HowToPlay()
+    {
+        HowToPlayCanvas.gameObject.SetActive(true);
+    }
+    
+    public void CloseHowToPlay()
+    {
+        HowToPlayCanvas.gameObject.SetActive(false);
     }
 }

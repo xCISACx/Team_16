@@ -53,8 +53,23 @@ public class PauseManager : MonoBehaviour
         GameManager.Instance.MenuManager.Options();
     }
 
+    public void HowToPlay()
+    {
+        GameManager.Instance.MenuManager.HowToPlay();
+    }
+
     public void QuitToMenu()
     {
         GameManager.Instance.MenuManager.QuitToMenu();
+    }
+    
+    public void PlayButtonHoverSound()
+    {
+        GameManager.Instance.MenuManager.PlayButtonHoverSound();
+    }
+    
+    public void PlayButtonClickSound()
+    {
+        GameManager.Instance.MenuManager.PlayButtonClickSound();
     }
 }
