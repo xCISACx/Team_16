@@ -12,6 +12,7 @@ public class Musician : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.MusicSource.GetComponent<AudioSource>().clip = musicPack.music;
+        PlayMusic();
     }
     public void PlayMusic()
     {
